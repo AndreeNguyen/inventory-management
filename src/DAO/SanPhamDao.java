@@ -70,7 +70,8 @@ public class SanPhamDao {
                         rs.getString("SoLuong"),
                         rs.getString("Gia"),
                         rs.getString("DonVi"),
-                        rs.getString("TenKhu")
+                        rs.getString("TenKhu"),
+                        rs.getString("MaKho")
                     };
                     list.add(model);
                 }
