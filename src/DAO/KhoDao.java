@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class KhoDao {
         public List<Kho> select() {
-        String sql = "select * from QLKho";
+        String sql = "select * from KhoHang";
         return select(sql);
     }
    
@@ -57,8 +57,8 @@ public class KhoDao {
         Kho model = new Kho();
         model.setMaKho(rs.getString("MaKho"));
         model.setTenKho(rs.getString("TenKho"));
-        model.setKhuVuc(rs.getString("KhuVuc"));
-        model.setManv(rs.getString("MaNV"));
+        model.setKhuVuc(rs.getString("MaNV"));
+        model.setManv(rs.getString("MaDiaDiem"));
 
         return model;
     }

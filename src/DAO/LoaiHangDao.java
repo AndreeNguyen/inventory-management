@@ -70,8 +70,7 @@ public class LoaiHangDao {
     private LoaiHang readFromResultSet(ResultSet rs) throws SQLException {
         LoaiHang model = new LoaiHang();
         model.setMaLH(rs.getString("MaLOAI"));
-        model.setTenLH(rs.getString("TenLH"));
-        model.setMaNcc(rs.getString("MaNcc"));
+        model.setTenLH(rs.getString("TenLOAI"));
         return model;
     }
 }

@@ -4,16 +4,105 @@
  */
 package view.Danhmucsp;
 
+import DAO.KhoDao;
+import DAO.LoaiHangDao;
+import DAO.SanPhamDao;
+import Model.Kho;
+import Model.SanPham;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import Model.LoaiHang;
 public class danhmucsp extends javax.swing.JFrame {
 
+    DefaultTableModel tableModel;
+
+    SanPhamDao daoSP = new SanPhamDao();
+    KhoDao daoKho = new KhoDao();
+    LoaiHangDao daoLH = new LoaiHangDao();
     /**
      * Creates new form tongquan
      */
     public danhmucsp() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Danh mục sản phẩm");
+        setLocationRelativeTo(null);
+        initTable();
+        tblDMSP.getColumn("Mã SP").setMinWidth(0);
+        tblDMSP.getColumn("Mã SP").setMaxWidth(0);
+        tblDMSP.getColumn("Mã SP").setWidth(0);
+
+        tblDMSP.getColumn("Mã Kho").setMinWidth(0);
+        tblDMSP.getColumn("Mã Kho").setMaxWidth(0);
+        tblDMSP.getColumn("Mã Kho").setWidth(0);
+        loaddata();
+        loadcboKho();
+        loadcboLoaiHang();
     }
 
+    private void initTable() {
+
+        tableModel = new DefaultTableModel();
+        Object[] Columns = new Object[]{"Mã SP", "Tên SP", "Loại SP", "Số lượng", "Giá", "ĐVT", "Khu", "Mã Kho"};
+        tableModel.setColumnIdentifiers(Columns);
+        tblDMSP.setModel(tableModel);
+
+    }
+
+    private void loaddata() {
+
+        try {
+            DefaultTableModel model = (DefaultTableModel) tblDMSP.getModel();
+            model.setRowCount(0);
+            List<SanPham> list = daoSP.select();
+            for (SanPham sp : list) {
+                Object[] row = {
+                    sp.getMaSP(),
+                    sp.getTenSp(),
+                    sp.getLoaiSP(),
+                    sp.getSoLuong(),
+                    sp.getGia(),
+                    sp.getDonVi(),
+                    sp.getKhu(),
+                    sp.getMaKho()
+                };
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi truy vấn dữ liệu", "Lỗi ", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void loadcboKho(){
+        cboKho.addItem("Kho Tổng");
+        try {
+            
+            List<Kho> list = daoKho.select();
+            for (Kho kh : list) {
+                cboKho.addItem(kh.getTenKho());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadcboLoaiHang(){
+        cboNhomHang.addItem("Tổng thể");
+        try {
+            List<LoaiHang> list = daoLH.select();
+            for (LoaiHang lh : list) {
+                cboNhomHang.addItem(lh.getTenLH());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -130,7 +219,11 @@ public class danhmucsp extends javax.swing.JFrame {
 
         jLabel2.setText("Nhóm hàng");
 
-        cboNhomHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboNhomHang.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboNhomHangItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout roundPanel4Layout = new javax.swing.GroupLayout(roundPanel4);
         roundPanel4.setLayout(roundPanel4Layout);
@@ -185,13 +278,33 @@ public class danhmucsp extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Danh mục sản phẩm");
 
+        txtSreach.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSreachKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Seach");
 
-        cboKho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboKho.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboKhoItemStateChanged(evt);
+            }
+        });
 
         btnThem.setText("Thêm ");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         btnXemCT.setText("Xem chi tiết");
+        btnXemCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXemCTActionPerformed(evt);
+            }
+        });
 
         Import.setText("Import");
         Import.addActionListener(new java.awt.event.ActionListener() {
@@ -304,20 +417,98 @@ public class danhmucsp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Import() {
+        //Đang cập nhật
+    }
+
     private void ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportActionPerformed
-        // TODO add your handling code here:
+        Import();
     }//GEN-LAST:event_ImportActionPerformed
+
+    private void cboNhomHangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboNhomHangItemStateChanged
+        
+        if(cboNhomHang.getSelectedItem().equals("Tổng thể")){
+            loaddata();
+            return;
+        }
+        String TenLH = String.valueOf(cboNhomHang.getSelectedItem());
+        DefaultTableModel model = (DefaultTableModel) tblDMSP.getModel();
+        model.setRowCount(0);
+
+        List<Object[]> list = daoSP.getLoaiSPtoTable(TenLH);
+        for (Object[] row : list) {
+            model.addRow(row);
+        }
+    }//GEN-LAST:event_cboNhomHangItemStateChanged
+
+    private void cboKhoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboKhoItemStateChanged
+        if (cboKho.getSelectedItem().equals("Kho Tổng")) {
+            loaddata();
+            return;
+        }
+        String Kho = String.valueOf(cboKho.getSelectedItem());
+        DefaultTableModel model = (DefaultTableModel) tblDMSP.getModel();
+        model.setRowCount(0);
+
+        List<Object[]> list = daoSP.getTenKhotoTable(Kho);
+        for (Object[] row : list) {
+            model.addRow(row);
+        }
+    }//GEN-LAST:event_cboKhoItemStateChanged
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        themsp them = new themsp();
+        them.setTitle("Thêm Sản Phẩm");
+        them.setVisible(true);
+
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    public void changeForm() {
+        int columnMaSP = 0;
+        int columnMaKho = 7;
+        int rowsl = tblDMSP.getSelectedRow();
+        if (rowsl == -1) {
+            JOptionPane.showMessageDialog(null, "Mời bạn chọn 1 sản phẩm để xem chi tiết", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String masp = tblDMSP.getModel().getValueAt(rowsl, columnMaSP).toString();
+        String makho = tblDMSP.getModel().getValueAt(rowsl, columnMaKho).toString();
+        System.out.println(makho);
+        themsp ct = new themsp();
+        ct.GetValueMa(masp, makho);
+        ct.setTitle("Xem Chi Tiết");
+        ct.setVisible(true);
+    }
+
+    private void btnXemCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemCTActionPerformed
+        changeForm();
+    }//GEN-LAST:event_btnXemCTActionPerformed
+
+    private void findByAuto(String str) {
+        tableModel = (DefaultTableModel) tblDMSP.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(tableModel);
+        tblDMSP.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter(str));
+//        tblDMSP.setPreferredScrollableViewportSize(tblDMSP.getPreferredSize());
+//        tblDMSP.setFillsViewportHeight(true);
+
+    }
+
+    private void txtSreachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSreachKeyReleased
+        findByAuto(txtSreach.getText());
+    }//GEN-LAST:event_txtSreachKeyReleased
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) { 
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new danhmucsp().setVisible(true);
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Import;

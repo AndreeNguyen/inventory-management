@@ -11,60 +11,42 @@ package Model;
 public class SanPham {
 
     private String MaSP;
-    private String MaKho;
-    private String LoaiSP;
     private String TenSp;
     private float Gia;
-    private String KichThuoc;
-    private String KhoiLuong;
-    private String DVT;
+    private String DonVi;
+    private String LoaiSP;
+    private String NhaCC;
     private String NSX;
     private String NHH;
+    private String MaKho;
     private String Khu;
     private int SoLuong;
 
     public SanPham() {
     }
 
-    
-    
-    public SanPham(String MaSP, String MaKho, String LoaiSP, String TenSp, float Gia, String KichThuoc, String KhoiLuong, String DVT, String NSX, String NHH, String Khu, int SoLuong) {
+    public SanPham(String MaSP, String TenSp, float Gia, String DonVi, String LoaiSP, String NhaCC, String NSX, String NHH, String MaKho, String Khu, int SoLuong) {
         this.MaSP = MaSP;
-        this.MaKho = MaKho;
-        this.LoaiSP = LoaiSP;
         this.TenSp = TenSp;
         this.Gia = Gia;
-        this.KichThuoc = KichThuoc;
-        this.KhoiLuong = KhoiLuong;
-        this.DVT = DVT;
+        this.DonVi = DonVi;
+        this.LoaiSP = LoaiSP;
+        this.NhaCC = NhaCC;
         this.NSX = NSX;
         this.NHH = NHH;
+        this.MaKho = MaKho;
         this.Khu = Khu;
         this.SoLuong = SoLuong;
     }
 
+    
+    
     public String getMaSP() {
         return MaSP;
     }
 
     public void setMaSP(String MaSP) {
         this.MaSP = MaSP;
-    }
-
-    public String getMaKho() {
-        return MaKho;
-    }
-
-    public void setMaKho(String MaKho) {
-        this.MaKho = MaKho;
-    }
-
-    public String getLoaiSP() {
-        return LoaiSP;
-    }
-
-    public void setLoaiSP(String LoaiSP) {
-        this.LoaiSP = LoaiSP;
     }
 
     public String getTenSp() {
@@ -83,28 +65,28 @@ public class SanPham {
         this.Gia = Gia;
     }
 
-    public String getKichThuoc() {
-        return KichThuoc;
+    public String getDonVi() {
+        return DonVi;
     }
 
-    public void setKichThuoc(String KichThuoc) {
-        this.KichThuoc = KichThuoc;
+    public void setDonVi(String DonVi) {
+        this.DonVi = DonVi;
     }
 
-    public String getKhoiLuong() {
-        return KhoiLuong;
+    public String getLoaiSP() {
+        return LoaiSP;
     }
 
-    public void setKhoiLuong(String KhoiLuong) {
-        this.KhoiLuong = KhoiLuong;
+    public void setLoaiSP(String LoaiSP) {
+        this.LoaiSP = LoaiSP;
     }
 
-    public String getDVT() {
-        return DVT;
+    public String getNhaCC() {
+        return NhaCC;
     }
 
-    public void setDVT(String DVT) {
-        this.DVT = DVT;
+    public void setNhaCC(String NhaCC) {
+        this.NhaCC = NhaCC;
     }
 
     public String getNSX() {
@@ -123,6 +105,14 @@ public class SanPham {
         this.NHH = NHH;
     }
 
+    public String getMaKho() {
+        return MaKho;
+    }
+
+    public void setMaKho(String MaKho) {
+        this.MaKho = MaKho;
+    }
+
     public String getKhu() {
         return Khu;
     }
@@ -139,6 +129,7 @@ public class SanPham {
         this.SoLuong = SoLuong;
     }
 
+    
    
 
 }

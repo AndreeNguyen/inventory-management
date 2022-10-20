@@ -22,32 +22,36 @@ public class SanPhamDao {
 //    }
     public List<SanPham> select() {
         String sql = """
-                     select TENSP, TENLH, SoLuong, Gia, DonViTinh,KhuLuuTru from SanPham 
-                     inner join LoaiHang on SanPham.MALOAI = LOAIHANG.MALOAI
-                     inner join SLHoangHoa on SANPHAM.MASP = SLHoangHoa.MASP""";
+                     select SANPHAM.MaSP, TENSP, TenLoai, SoLuong, Gia, DonVi,TenKhu,Khohang.MaKho from SanPham 
+                                          inner join LoaiHang on SanPham.MALOAI = LOAIHANG.MALOAI
+                                          inner join SoLuongSP on SANPHAM.MASP = SoLuongSP.MASP
+                     			  inner join Khu on Khu.MaLoai = LoaiHang.MaLoai
+                                          inner join KhoHang on Khu.MaKho = KhoHang.MaKho
+                     """;
         return select(sql);
     }
 
     public void insert(SanPham model) {
-        String sql = "INSERT INTO SANPHAM (MASP, MaKho, MaLoai,TENSP, GIA, KICHTHUOC, KhoiLuong, DonViTinh, dateSX, dateHH, KhuLuuTru )"
+        String sql = "INSERT INTO SANPHAM (MASP, TENSP, GIA, DonVi, NSX, NHH, KhuLuuTru )"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                 + "";
-        JdcbHelper.executeUpdate(sql, model.getMaSP(), model.getMaKho(), model.getLoaiSP(), model.getTenSp(), model.getGia(), model.getKichThuoc(), model.getKhoiLuong(), model.getDVT(), model.getNSX(), model.getNHH(), model.getKhu());
+        JdcbHelper.executeUpdate(sql, model.getMaSP(), model.getMaKho(), model.getLoaiSP(), model.getTenSp(), model.getGia(), model.getDonVi(), model.getNSX(), model.getNHH(), model.getKhu());
     }
 
     public void Update(SanPham model) {
-        String sql = "UPDATE SanPham SET MASP=?, MaKho=?, MaLoai=?, TenSP=?, Gia=?, KIchThuoc=?, DonViTinh=?, dateSX=?, dateHH=?, KhuLuuTru=? WHERE MaSP=?";
-        JdcbHelper.executeUpdate(sql, model.getMaSP(), model.getMaKho(), model.getLoaiSP(), model.getTenSp(), model.getGia(), model.getKichThuoc(), model.getKhoiLuong(), model.getDVT(), model.getNSX(), model.getNHH(), model.getKhu(), model.getMaSP());
+        String sql = "UPDATE SanPham SET MASP=?, TenSP=?, Gia=?, DonVi=?, MaLoai=?, MaNCC=?, NSX=?, NHH=?  WHERE MaSP=?";
+        JdcbHelper.executeUpdate(sql, model.getMaSP(), model.getTenSp(), model.getGia(), model.getDonVi(), model.getLoaiSP(), model.getNhaCC(), model.getNSX(), model.getNHH(), model.getMaSP());
     }
 
-    public SanPham findByName(String MaSP) {
+    public SanPham findByName(String MaSP, String MaKho) {
         String sql = """
-                     select SANPHAM.MASP,TENLH,SoLuong, TENKHO, TenSP, KhoiLuong, KichThuoc, DonViTinh, Gia, dateSX, dateHH,KhuLuuTru from SanPham 
-                     inner join LoaiHang on SanPham.MALOAI = LOAIHANG.MALOAI
-                     inner join SLHoangHoa on SANPHAM.MASP = SLHoangHoa.MASP
-                     inner join QLKho on QLKho.MaKho = SANPHAM.MaKho
-                     where TenSP like ?""";
-        List<SanPham> list = selectCT(sql, MaSP);
+                     select SANPHAM.MaSP,TENSP, TenLoai, SoLuong, Gia, DonVi, TenKhu, NSX, NHH, KhoHang.MaKho from SanPham 
+                                          inner join LoaiHang on SanPham.MALOAI = LOAIHANG.MALOAI
+                                          inner join SoLuongSP on SANPHAM.MASP = SoLuongSP.MASP
+                     					 inner join Khu on Khu.MaLoai = LoaiHang.MaLoai
+                     					 inner join KhoHang on Khu.MaKho = KhoHang.MaKho
+                     					where SANPHAM.MaSP = ? and KhoHang.MaKho = ?""";
+        List<SanPham> list = selectCT(sql, MaSP, MaKho);
         return list.size() > 0 ? list.get(0) : null;
     }
 
@@ -60,12 +64,43 @@ public class SanPhamDao {
                 rs = JdcbHelper.executeQuery(sql, Kho);
                 while (rs.next()) {
                     Object[] model = {
+                        rs.getString("MaSP"),
                         rs.getString("TENSP"),
-                        rs.getString("TENLH"),
+                        rs.getString("TENLOAI"),
                         rs.getString("SoLuong"),
                         rs.getString("Gia"),
-                        rs.getString("DonViTinh"),
-                        rs.getString("KhuLuuTru")
+                        rs.getString("DonVi"),
+                        rs.getString("TenKhu")
+                    };
+                    list.add(model);
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException(ex);
+        }
+        return list;
+    }
+
+    public List<Object[]> getLoaiSPtoTable(String TenLH) {
+        List<Object[]> list = new ArrayList<>();
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "{call sp_LayTenLoaiHang (?)}";
+                rs = JdcbHelper.executeQuery(sql, TenLH);
+                while (rs.next()) {
+                    Object[] model = {
+                        rs.getString("MaSP"),
+                        rs.getString("TENSP"),
+                        rs.getString("TENLOAI"),
+                        rs.getString("SoLuong"),
+                        rs.getString("Gia"),
+                        rs.getString("DonVi"),
+                        rs.getString("TenKhu"),
+                        rs.getString("MaKho")
                     };
                     list.add(model);
                 }
@@ -101,12 +136,14 @@ public class SanPhamDao {
 
     private SanPham readFromResultSet(ResultSet rs) throws SQLException {
         SanPham model = new SanPham();
+        model.setMaSP(rs.getString("MaSP"));
         model.setTenSp(rs.getString("TenSP"));
-        model.setLoaiSP(rs.getString("TenLH"));
+        model.setLoaiSP(rs.getString("TenLoai"));
         model.setSoLuong(rs.getInt("SoLuong"));
         model.setGia(rs.getFloat("Gia"));
-        model.setDVT(rs.getString("DonViTinh"));
-        model.setKhu(rs.getString("KhuLuuTru"));
+        model.setDonVi(rs.getString("DonVi"));
+        model.setKhu(rs.getString("TenKhu"));
+        model.setMaKho(rs.getString("MaKho"));
         return model;
     }
 
@@ -133,17 +170,14 @@ public class SanPhamDao {
     private SanPham readFromResultSetCT(ResultSet rs) throws SQLException {
         SanPham model = new SanPham();
         model.setMaSP(rs.getString("MaSP"));
-        model.setMaKho(rs.getString("TenKho"));
-        model.setLoaiSP(rs.getString("TenLH"));
+        model.setLoaiSP(rs.getString("TenLoai"));
         model.setTenSp(rs.getString("TenSP"));
-        model.setKhoiLuong(rs.getString("KhoiLuong"));
-        model.setSoLuong(rs.getInt("SoLuong"));
-        model.setKichThuoc(rs.getString("KichThuoc"));
         model.setGia(rs.getFloat("Gia"));
-        model.setDVT(rs.getString("DonViTinh"));
-        model.setNSX(rs.getString("dateSX"));
-        model.setNHH(rs.getString("dateHH"));
-        model.setKhu(rs.getString("KhuLuuTru"));
+        model.setDonVi(rs.getString("DonVi"));
+        model.setNSX(rs.getString("NSX"));
+        model.setNHH(rs.getString("NHH"));
+        model.setKhu(rs.getString("TenKhu"));
+        model.setMaKho(rs.getString("MaKho"));
         return model;
     }
 }
