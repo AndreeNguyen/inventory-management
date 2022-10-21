@@ -4,6 +4,7 @@
  */
 package view.Tongquan;
 
+import model.DatabaseHelper;
 import com.raven.chart.ModelChart;
 import java.awt.Color;
 import java.sql.Connection;
