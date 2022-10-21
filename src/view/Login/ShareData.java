@@ -9,5 +9,5 @@ package view.Login;
  * @author My PC
  */
 public class ShareData {
-    
+    public static nguoidung nguoidangnhap;
 }

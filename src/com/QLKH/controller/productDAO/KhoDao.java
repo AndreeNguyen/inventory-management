@@ -5,7 +5,7 @@
 package com.QLKH.controller.productDAO;
 
 import com.QLKH.entity.product.Kho;
-import com.edusys.model.DatabaseHelper;
+import com.QLKH.model.DatabaseHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

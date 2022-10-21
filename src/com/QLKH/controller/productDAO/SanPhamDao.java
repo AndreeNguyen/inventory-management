@@ -5,7 +5,7 @@
 package com.QLKH.controller.productDAO;
 
 import com.QLKH.entity.product.SanPham;
-import com.edusys.model.DatabaseHelper;
+import com.QLKH.model.DatabaseHelper;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
