@@ -4,6 +4,7 @@
  */
 package view.Login;
 
+import com.edusys.model.DatabaseHelper;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

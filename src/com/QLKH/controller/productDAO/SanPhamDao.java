@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package com.QLKH.controller.productDAO;
 
-import Model.SanPham;
+import com.QLKH.entity.product.SanPham;
+import com.edusys.model.DatabaseHelper;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
-import Helper.JdcbHelper;
+import java.sql.ResultSet;
 
 /**
  *
@@ -35,22 +36,22 @@ public class SanPhamDao {
         String sql = "INSERT INTO SANPHAM (MASP, TENSP, GIA, DonVi, NSX, NHH, KhuLuuTru )"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                 + "";
-        JdcbHelper.executeUpdate(sql, model.getMaSP(), model.getMaKho(), model.getLoaiSP(), model.getTenSp(), model.getGia(), model.getDonVi(), model.getNSX(), model.getNHH(), model.getKhu());
+        DatabaseHelper.executeUpdate(sql, model.getMaSP(), model.getMaKho(), model.getLoaiSP(), model.getTenSp(), model.getGia(), model.getDonVi(), model.getNSX(), model.getNHH(), model.getKhu());
     }
 
     public void Update(SanPham model) {
         String sql = "UPDATE SanPham SET MASP=?, TenSP=?, Gia=?, DonVi=?, MaLoai=?, MaNCC=?, NSX=?, NHH=?  WHERE MaSP=?";
-        JdcbHelper.executeUpdate(sql, model.getMaSP(), model.getTenSp(), model.getGia(), model.getDonVi(), model.getLoaiSP(), model.getNhaCC(), model.getNSX(), model.getNHH(), model.getMaSP());
+        DatabaseHelper.executeUpdate(sql, model.getMaSP(), model.getTenSp(), model.getGia(), model.getDonVi(), model.getLoaiSP(), model.getNhaCC(), model.getNSX(), model.getNHH(), model.getMaSP());
     }
 
     public SanPham findByName(String MaSP, String MaKho) {
         String sql = """
-                     select SANPHAM.MaSP,TENSP, TenLoai, SoLuong, Gia, DonVi, TenKhu, NSX, NHH, KhoHang.MaKho from SanPham 
-                                          inner join LoaiHang on SanPham.MALOAI = LOAIHANG.MALOAI
-                                          inner join SoLuongSP on SANPHAM.MASP = SoLuongSP.MASP
-                     					 inner join Khu on Khu.MaLoai = LoaiHang.MaLoai
-                     					 inner join KhoHang on Khu.MaKho = KhoHang.MaKho
-                     					where SANPHAM.MaSP = ? and KhoHang.MaKho = ?""";
+                    select SANPHAM.MaSP,TENSP, TenLoai, SoLuong, Gia, DonVi, TenKhu, NSX, NHH, KhoHang.MaKho from SanPham 
+                                                                                                  inner join LoaiHang on SanPham.MALOAI = LOAIHANG.MALOAI
+                                                                                                  inner join SoLuongSP on SANPHAM.MASP = SoLuongSP.MASP
+                                                                             					 inner join Khu on Khu.MaLoai = LoaiHang.MaLoai
+                                                                             					 inner join KhoHang on Khu.MaKho = KhoHang.MaKho
+                                                                             					where SANPHAM.MaSP = ? and KhoHang.MaKho = ?""";
         List<SanPham> list = selectCT(sql, MaSP, MaKho);
         return list.size() > 0 ? list.get(0) : null;
     }
@@ -61,7 +62,7 @@ public class SanPhamDao {
             ResultSet rs = null;
             try {
                 String sql = "{call sp_LayTenKho (?)}";
-                rs = JdcbHelper.executeQuery(sql, Kho);
+                rs = DatabaseHelper.executeQuery(sql, Kho);
                 while (rs.next()) {
                     Object[] model = {
                         rs.getString("MaSP"),
@@ -91,7 +92,7 @@ public class SanPhamDao {
             ResultSet rs = null;
             try {
                 String sql = "{call sp_LayTenLoaiHang (?)}";
-                rs = JdcbHelper.executeQuery(sql, TenLH);
+                rs = DatabaseHelper.executeQuery(sql, TenLH);
                 while (rs.next()) {
                     Object[] model = {
                         rs.getString("MaSP"),
@@ -120,7 +121,7 @@ public class SanPhamDao {
         try {
             ResultSet rs = null;
             try {
-                rs = JdcbHelper.executeQuery(sql, args);
+                rs = DatabaseHelper.executeQuery(sql, args);
                 while (rs.next()) {
                     SanPham model = readFromResultSet(rs);
                     list.add(model);
@@ -153,7 +154,7 @@ public class SanPhamDao {
         try {
             ResultSet rs = null;
             try {
-                rs = JdcbHelper.executeQuery(sql, args);
+                rs = DatabaseHelper.executeQuery(sql, args);
                 while (rs.next()) {
                     SanPham model = readFromResultSetCT(rs);
                     list.add(model);

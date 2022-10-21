@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package com.QLKH.controller.productDAO;
 
-import Helper.JdcbHelper;
-import Model.LoaiHang;
+import com.QLKH.entity.product.LoaiHang;
+import com.edusys.model.DatabaseHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class LoaiHangDao {
         try {
             ResultSet rs = null;
             try {
-                rs = JdcbHelper.executeQuery(sql, args);
+                rs = DatabaseHelper.executeQuery(sql, args);
                 while (rs.next()) {
                     LoaiHang model = readFromResultSet(rs);
                     list.add(model);

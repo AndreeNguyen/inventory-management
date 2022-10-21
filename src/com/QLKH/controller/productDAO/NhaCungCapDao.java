@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package com.QLKH.controller.productDAO;
 
-import Helper.JdcbHelper;
-import Model.NhaCungCap;
+
+import com.QLKH.entity.product.NhaCungCap;
+import com.edusys.model.DatabaseHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class NhaCungCapDao {
             try {
                 ResultSet rs = null;
                 try {
-                    rs = JdcbHelper.executeQuery(sql, args);
+                    rs = DatabaseHelper.executeQuery(sql, args);
                     while (rs.next()) {
                         NhaCungCap model = readFromResultSet(rs);
                         list.add(model);
