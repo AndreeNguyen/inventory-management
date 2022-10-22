@@ -6,8 +6,8 @@ package view.Login;
 
 /**
  *
- * @author doqua
+ * @author My PC
  */
-class ShareData {
+public class ShareData {
     public static nguoidung nguoidangnhap;
 }
