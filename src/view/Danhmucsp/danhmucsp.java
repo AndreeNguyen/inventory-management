@@ -16,6 +16,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import com.QLKH.entity.product.LoaiHang;
+
 public class danhmucsp extends javax.swing.JFrame {
 
     DefaultTableModel tableModel;
@@ -23,6 +24,7 @@ public class danhmucsp extends javax.swing.JFrame {
     SanPhamDao daoSP = new SanPhamDao();
     KhoDao daoKho = new KhoDao();
     LoaiHangDao daoLH = new LoaiHangDao();
+
     /**
      * Creates new form tongquan
      */
@@ -39,6 +41,11 @@ public class danhmucsp extends javax.swing.JFrame {
         tblDMSP.getColumn("Mã Kho").setMinWidth(0);
         tblDMSP.getColumn("Mã Kho").setMaxWidth(0);
         tblDMSP.getColumn("Mã Kho").setWidth(0);
+
+//        tblDMSP.getColumn("Tên NCC").setMinWidth(0);
+//        tblDMSP.getColumn("Tên NCC").setMaxWidth(0);
+//        tblDMSP.getColumn("Tên NCC").setWidth(0);
+
         loaddata();
         loadcboKho();
         loadcboLoaiHang();
@@ -47,7 +54,7 @@ public class danhmucsp extends javax.swing.JFrame {
     private void initTable() {
 
         tableModel = new DefaultTableModel();
-        Object[] Columns = new Object[]{"Mã SP", "Tên SP", "Loại SP", "Số lượng", "Giá", "ĐVT", "Khu", "Mã Kho"};
+        Object[] Columns = new Object[]{"Mã SP", "Tên SP", "Loại SP", "Số lượng", "Giá", "ĐVT", "Khu", "Mã Kho", "Mã NCC"};
         tableModel.setColumnIdentifiers(Columns);
         tblDMSP.setModel(tableModel);
 
@@ -68,7 +75,8 @@ public class danhmucsp extends javax.swing.JFrame {
                     sp.getGia(),
                     sp.getDonVi(),
                     sp.getKhu(),
-                    sp.getMaKho()
+                    sp.getMaKho(),
+                    sp.getNhaCC()
                 };
                 model.addRow(row);
             }
@@ -77,11 +85,11 @@ public class danhmucsp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Lỗi truy vấn dữ liệu", "Lỗi ", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void loadcboKho(){
+
+    private void loadcboKho() {
         cboKho.addItem("Kho Tổng");
         try {
-            
+
             List<Kho> list = daoKho.select();
             for (Kho kh : list) {
                 cboKho.addItem(kh.getTenKho());
@@ -91,7 +99,7 @@ public class danhmucsp extends javax.swing.JFrame {
         }
     }
 
-    private void loadcboLoaiHang(){
+    private void loadcboLoaiHang() {
         cboNhomHang.addItem("Tổng thể");
         try {
             List<LoaiHang> list = daoLH.select();
@@ -102,7 +110,7 @@ public class danhmucsp extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -426,8 +434,8 @@ public class danhmucsp extends javax.swing.JFrame {
     }//GEN-LAST:event_ImportActionPerformed
 
     private void cboNhomHangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboNhomHangItemStateChanged
-        
-        if(cboNhomHang.getSelectedItem().equals("Tổng thể")){
+
+        if (cboNhomHang.getSelectedItem().equals("Tổng thể")) {
             loaddata();
             return;
         }
@@ -466,6 +474,7 @@ public class danhmucsp extends javax.swing.JFrame {
     public void changeForm() {
         int columnMaSP = 0;
         int columnMaKho = 7;
+        int columntenNCC = 8;
         int rowsl = tblDMSP.getSelectedRow();
         if (rowsl == -1) {
             JOptionPane.showMessageDialog(null, "Mời bạn chọn 1 sản phẩm để xem chi tiết", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -473,9 +482,10 @@ public class danhmucsp extends javax.swing.JFrame {
         }
         String masp = tblDMSP.getModel().getValueAt(rowsl, columnMaSP).toString();
         String makho = tblDMSP.getModel().getValueAt(rowsl, columnMaKho).toString();
-        System.out.println(makho);
+        String tenncc = tblDMSP.getModel().getValueAt(rowsl, columntenNCC).toString();        System.out.println(makho);
+        System.out.println(1 + " "+tenncc);
         themsp ct = new themsp();
-        ct.GetValueMa(masp, makho);
+        ct.GetValueMa(masp, makho, tenncc);
         ct.setTitle("Xem Chi Tiết");
         ct.setVisible(true);
     }

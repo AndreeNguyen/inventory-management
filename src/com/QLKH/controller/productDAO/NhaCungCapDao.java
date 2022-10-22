@@ -18,8 +18,6 @@ import java.util.List;
  */
 public class NhaCungCapDao {
 
-    public class KhoDao {
-
         public List<NhaCungCap> select() {
             String sql = "select * from NhaCungCap";
             return select(sql);
@@ -56,9 +54,10 @@ public class NhaCungCapDao {
             model.setMaNCC(rs.getString("MaNCC"));
             model.setTenNCC(rs.getString("TenNCC"));
             model.setSDT(rs.getString("SDT"));
-            model.setEmail(rs.getString("MaDiaDiem"));
+            model.setEmail(rs.getString("Email"));
+            model.setDiaChi(rs.getString("DiaChi"));
             model.setMaSoThue(rs.getString("MaSoThue"));
             return model;
         }
     }
-}
+

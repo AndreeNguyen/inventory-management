@@ -23,11 +23,12 @@ public class SanPhamDao {
 //    }
     public List<SanPham> select() {
         String sql = """
-                     select SANPHAM.MaSP, TENSP, TenLoai, SoLuong, Gia, DonVi,TenKhu,Khohang.MaKho from SanPham 
-                                          inner join LoaiHang on SanPham.MALOAI = LOAIHANG.MALOAI
-                                          inner join SoLuongSP on SANPHAM.MASP = SoLuongSP.MASP
-                     			  inner join Khu on Khu.MaLoai = LoaiHang.MaLoai
-                                          inner join KhoHang on Khu.MaKho = KhoHang.MaKho
+                        select SANPHAM.MaSP, TENSP, TenLoai, SoLuong, Gia, DonVi,TenKhu,Khohang.MaKho,TenNCC from SanPham 
+                        inner join LoaiHang on SanPham.MALOAI = LOAIHANG.MALOAI
+                        inner join SoLuongSP on SANPHAM.MASP = SoLuongSP.MASP
+                        inner join Khu on Khu.MaLoai = LoaiHang.MaLoai
+                        inner join KhoHang on Khu.MaKho = KhoHang.MaKho
+                        join NhaCungCap on NhaCungCap.MaNCC = SANPHAM.MaNCC
                      """;
         return select(sql);
     }
@@ -45,13 +46,14 @@ public class SanPhamDao {
     }
 
     public SanPham findByName(String MaSP, String MaKho) {
-        String sql = """
-                    select SANPHAM.MaSP,TENSP, TenLoai, SoLuong, Gia, DonVi, TenKhu, NSX, NHH, KhoHang.MaKho from SanPham 
-                                                                                                  inner join LoaiHang on SanPham.MALOAI = LOAIHANG.MALOAI
-                                                                                                  inner join SoLuongSP on SANPHAM.MASP = SoLuongSP.MASP
-                                                                             					 inner join Khu on Khu.MaLoai = LoaiHang.MaLoai
-                                                                             					 inner join KhoHang on Khu.MaKho = KhoHang.MaKho
-                                                                             					where SANPHAM.MaSP = ? and KhoHang.MaKho = ?""";
+        String sql;
+        sql = """
+              select SANPHAM.MaSP,TENSP, TenLoai, SoLuong, Gia, DonVi, TenKhu, NSX, NHH, KhoHang.MaKho,MaNCC from SanPham
+                                                                                            inner join LoaiHang on SanPham.MALOAI = LOAIHANG.MALOAI
+                                                                                            inner join SoLuongSP on SANPHAM.MASP = SoLuongSP.MASP
+                                                                                                           inner join Khu on Khu.MaLoai = LoaiHang.MaLoai
+                                                                       					 inner join KhoHang on Khu.MaKho = KhoHang.MaKho
+                                                                       					 where SANPHAM.MaSP = ? and KhoHang.MaKho = ?""";
         List<SanPham> list = selectCT(sql, MaSP, MaKho);
         return list.size() > 0 ? list.get(0) : null;
     }
@@ -72,8 +74,7 @@ public class SanPhamDao {
                         rs.getString("Gia"),
                         rs.getString("DonVi"),
                         rs.getString("TenKhu"),
-                        rs.getString("MaKho")
-                    };
+                        rs.getString("MaKho"),};
                     list.add(model);
                 }
             } finally {
@@ -102,8 +103,7 @@ public class SanPhamDao {
                         rs.getString("Gia"),
                         rs.getString("DonVi"),
                         rs.getString("TenKhu"),
-                        rs.getString("MaKho")
-                    };
+                        rs.getString("MaKho"),};
                     list.add(model);
                 }
             } finally {
@@ -146,6 +146,7 @@ public class SanPhamDao {
         model.setDonVi(rs.getString("DonVi"));
         model.setKhu(rs.getString("TenKhu"));
         model.setMaKho(rs.getString("MaKho"));
+        model.setNhaCC(rs.getString("TenNCC"));
         return model;
     }
 
@@ -180,6 +181,7 @@ public class SanPhamDao {
         model.setNHH(rs.getString("NHH"));
         model.setKhu(rs.getString("TenKhu"));
         model.setMaKho(rs.getString("MaKho"));
+        model.setNhaCC(rs.getString("MaNCC"));
         return model;
     }
 }
