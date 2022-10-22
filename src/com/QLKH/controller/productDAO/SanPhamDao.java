@@ -74,7 +74,9 @@ public class SanPhamDao {
                         rs.getString("Gia"),
                         rs.getString("DonVi"),
                         rs.getString("TenKhu"),
-                        rs.getString("MaKho"),};
+                        rs.getString("MaKho"),
+                        rs.getString("TenNCC")
+                    };
                     list.add(model);
                 }
             } finally {
@@ -103,7 +105,9 @@ public class SanPhamDao {
                         rs.getString("Gia"),
                         rs.getString("DonVi"),
                         rs.getString("TenKhu"),
-                        rs.getString("MaKho"),};
+                        rs.getString("MaKho"),
+                        rs.getString("TenNCC")
+                    };
                     list.add(model);
                 }
             } finally {
@@ -176,6 +180,7 @@ public class SanPhamDao {
         model.setLoaiSP(rs.getString("TenLoai"));
         model.setTenSp(rs.getString("TenSP"));
         model.setGia(rs.getFloat("Gia"));
+        model.setSoLuong(rs.getInt("SoLuong"));
         model.setDonVi(rs.getString("DonVi"));
         model.setNSX(rs.getString("NSX"));
         model.setNHH(rs.getString("NHH"));

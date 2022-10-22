@@ -42,9 +42,9 @@ public class danhmucsp extends javax.swing.JFrame {
         tblDMSP.getColumn("Mã Kho").setMaxWidth(0);
         tblDMSP.getColumn("Mã Kho").setWidth(0);
 
-//        tblDMSP.getColumn("Tên NCC").setMinWidth(0);
-//        tblDMSP.getColumn("Tên NCC").setMaxWidth(0);
-//        tblDMSP.getColumn("Tên NCC").setWidth(0);
+        tblDMSP.getColumn("Tên NCC").setMinWidth(0);
+        tblDMSP.getColumn("Tên NCC").setMaxWidth(0);
+        tblDMSP.getColumn("Tên NCC").setWidth(0);
 
         loaddata();
         loadcboKho();
@@ -54,7 +54,7 @@ public class danhmucsp extends javax.swing.JFrame {
     private void initTable() {
 
         tableModel = new DefaultTableModel();
-        Object[] Columns = new Object[]{"Mã SP", "Tên SP", "Loại SP", "Số lượng", "Giá", "ĐVT", "Khu", "Mã Kho", "Mã NCC"};
+        Object[] Columns = new Object[]{"Mã SP", "Tên SP", "Loại SP", "Số lượng", "Giá", "ĐVT", "Khu", "Mã Kho", "Tên NCC"};
         tableModel.setColumnIdentifiers(Columns);
         tblDMSP.setModel(tableModel);
 
@@ -482,8 +482,7 @@ public class danhmucsp extends javax.swing.JFrame {
         }
         String masp = tblDMSP.getModel().getValueAt(rowsl, columnMaSP).toString();
         String makho = tblDMSP.getModel().getValueAt(rowsl, columnMaKho).toString();
-        String tenncc = tblDMSP.getModel().getValueAt(rowsl, columntenNCC).toString();        System.out.println(makho);
-        System.out.println(1 + " "+tenncc);
+        String tenncc = tblDMSP.getModel().getValueAt(rowsl, columntenNCC).toString();        
         themsp ct = new themsp();
         ct.GetValueMa(masp, makho, tenncc);
         ct.setTitle("Xem Chi Tiết");
