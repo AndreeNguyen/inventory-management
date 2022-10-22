@@ -6,20 +6,18 @@ package view.Nhacungcap;
 
 import model.DatabaseHelper;
 import com.QLKH.entity.supplier.NhaCungCap;
+import controller.productDAO.NhaCungCapDao;
 import entity.product.NhaCungCap;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.text.ParseException;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
-
-
+import utils.MSGBox;
 
 /**
  *
@@ -27,45 +25,44 @@ import javax.swing.table.TableRowSorter;
  */
 public class lichsunhap extends javax.swing.JFrame {
 
-    DefaultTableModel tblModel ;
+    DefaultTableModel tblModel;
     ArrayList<NhaCungCap> list = new ArrayList<>();
     nhacungcap ncc = new nhacungcap();
-    ArrayList<NhaCungCap> list2 = nhacungcap.getList();
-    
+    List<NhaCungCap> listNCC = nhacungcap.getList();
+    NhaCungCapDao daoNCC = new NhaCungCapDao();
+
     public lichsunhap() {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        initTableHistory();
-        fillTableHistory();
+//        initTableHistory();
+//        fillTableHistory();
     }
-    
-    private void initTable(DefaultTableModel model) {
-        Object[] columns = new Object[]{"Mã NCC", "Tên NCC", "SDT", "Email"};
-        model.setColumnIdentifiers(columns);        
-        tblKhoaHoc.setModel(model);
-    }
-    
-    private void fillTableHistory(){
-        DefaultTableModel model = (DefaultTableModel) tblKhoaHoc.getModel();
-        initTable(model);
-        model.setRowCount(0);
-        try {
-            List<KhoaHoc> listNH = daoKH.selectAll();
-            for (KhoaHoc kh : listNH) {
-                Object[] rows = {kh.getCodeKH(),kh.getNote(),kh.getDateBegin(),kh.getDateRegister()};
-                model.addRow(rows);
-            }
-            model.fireTableDataChanged();
-        } catch (Exception e) {
-            MSGBox.alert(this, "Lỗi truy vấn dữ liệu!");
-        }
-    }
-    
-    
-    public void getValueNCC(String str) throws ParseException{
+
+//    private void initTable(DefaultTableModel model) {
+//        Object[] columns = new Object[]{"Mã NCC", "Tên NCC", "SDT", "Email"};
+//        model.setColumnIdentifiers(columns);        
+//        tblKhoaHoc.setModel(model);
+//    }
+//    
+//    private void fillTableHistory(){
+//        DefaultTableModel model = (DefaultTableModel) tblKhoaHoc.getModel();
+//        initTable(model);
+//        model.setRowCount(0);
+//        try {
+//            List<KhoaHoc> listNH = daoKH.selectAll();
+//            for (KhoaHoc kh : listNH) {
+//                Object[] rows = {kh.getCodeKH(),kh.getNote(),kh.getDateBegin(),kh.getDateRegister()};
+//                model.addRow(rows);
+//            }
+//            model.fireTableDataChanged();
+//        } catch (Exception e) {
+//            MSGBox.alert(this, "Lỗi truy vấn dữ liệu!");
+//        }
+//    }
+    public void getValueNCC(String str) throws ParseException {
         txtMaNCC.setText(str);
-        for (NhaCungCap ncc : list2) {
+        for (NhaCungCap ncc : listNCC) {
             if (txtMaNCC.getText().equalsIgnoreCase(ncc.getMaNCC())) {
                 txtTenNCC.setText(ncc.getTenNCC());
                 txaDiaChi.setText(ncc.getDiaChi());
@@ -79,22 +76,49 @@ public class lichsunhap extends javax.swing.JFrame {
         }
     }
 
-    
     private void findByAuto(String str) {
         tblModel = (DefaultTableModel) tblList_History.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(tblModel);
         tblList_History.setRowSorter(trs);
         trs.setRowFilter(RowFilter.regexFilter(str));
     }
-    
-    private void update() {
 
+    private void update() {
+        if (MSGBox.confirm(this, "Bạn có muốn xoá chuyên đề này?")) {
+            try {
+                daoNCC.update(ncc);
+                MSGBox.alert(this, "Cập nhật thành công");
+            } catch (Exception e) {
+                MSGBox.alert(this, "Cập nhật thất bại!!");
+            }
+        }
     }
 
     private void delete() {
-
+        if (MSGBox.confirm(this, "Bạn có muốn xoá chuyên đề này?")) {
+            String maNCC = txtMaNCC.getText();
+            try {
+                daoNCC.delete(maNCC);
+                MSGBox.alert(this, "Xoá thành công!!");
+            } catch (Exception e) {
+                MSGBox.alert(this, "Xoá thất bại!!");
+            }
+        }
+//        }
     }
-    
+
+    private void setForm(NhaCungCap ncc) {
+        txtMaNCC.setText(ncc.getMaNCC());
+        txtTenNCC.setText(ncc.getTenNCC());
+        txaDiaChi.setText(ncc.getDiaChi());
+        txtDienThoai.setText(ncc.getSDT());
+        txtMaSoThue.setText(ncc.getMaSoThue());
+        txtEmail.setText(ncc.getEmail());
+        txtCongTy.setText(ncc.getCongty());
+        txtNhomNCC.setText(ncc.getNhomNCC());
+        txtNgayTao.setText(ncc.getNgayTaoDate().toString());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,7 +139,6 @@ public class lichsunhap extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -128,14 +151,13 @@ public class lichsunhap extends javax.swing.JFrame {
         txtMaNCC = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtTenNCC = new javax.swing.JTextField();
-        txtKhuVuc = new javax.swing.JTextField();
         txtDienThoai = new javax.swing.JTextField();
         txtNhomNCC = new javax.swing.JTextField();
         txtCongTy = new javax.swing.JTextField();
         txtNgayTao = new javax.swing.JTextField();
         txtMaSoThue = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        txaDiaChi = new javax.swing.JTextPane();
+        txaDiaChi = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblList_History = new com.raven.swing.Table();
@@ -214,9 +236,6 @@ public class lichsunhap extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setText("Địa chỉ:");
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setText("Khu vực giao hàng:");
-
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setText("Điện thoại:");
 
@@ -270,6 +289,8 @@ public class lichsunhap extends javax.swing.JFrame {
             }
         });
 
+        txaDiaChi.setColumns(20);
+        txaDiaChi.setRows(5);
         jScrollPane4.setViewportView(txaDiaChi);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -288,26 +309,24 @@ public class lichsunhap extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDienThoai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtKhuVuc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(txtTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane4)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                    .addComponent(txtTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -341,20 +360,10 @@ public class lichsunhap extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(txtTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(114, 114, 114))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jScrollPane4)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel12)
-                                    .addComponent(txtKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel13)
-                                    .addComponent(txtDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,9 +383,10 @@ public class lichsunhap extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
-                            .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                            .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13)
+                            .addComponent(txtDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(156, 156, 156)))
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
                     .addComponent(btnStop)
@@ -692,7 +702,6 @@ public class lichsunhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -729,11 +738,10 @@ public class lichsunhap extends javax.swing.JFrame {
     private com.raven.swing.Table table2;
     private javax.swing.JTabbedPane tblList_Debt;
     private com.raven.swing.Table tblList_History;
-    private javax.swing.JTextPane txaDiaChi;
+    private javax.swing.JTextArea txaDiaChi;
     private javax.swing.JTextField txtCongTy;
     private javax.swing.JTextField txtDienThoai;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtKhuVuc;
     private javax.swing.JTextField txtMaNCC;
     private javax.swing.JTextField txtMaSoThue;
     private javax.swing.JTextField txtNgayTao;

@@ -79,7 +79,7 @@ public class NhaCungCapDao {
         DatabaseHelper.executeUpdate(updateNCC, entity.getTenNCC(), entity.getSDT(),entity.getEmail() ,entity.getDiaChi(), entity.getMaSoThue(),entity.getCongty(),entity.getNhomNCC(),entity.getNgayTaoDate(), entity.getMaNCC());
     }
 
-    public void delete(Integer keytype) {
+    public void delete(String keytype) {
         DatabaseHelper.executeUpdate(deleteNCC, keytype);
     }
 

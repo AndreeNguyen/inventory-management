@@ -5,66 +5,61 @@
 package view.Nhacungcap;
 
 import controller.productDAO.NhaCungCapDao;
-import model.DatabaseHelper;
 import entity.product.NhaCungCap;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import java.text.ParseException;
 import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import utils.MSGBox;
-import validate.Validation;
 
 /**
  *
  * @author doqua
  */
 public class nhacungcap extends javax.swing.JFrame {
+
     NhaCungCapDao daoNCC = new NhaCungCapDao();
     public static List<NhaCungCap> listNCC = new ArrayList<>();
 
     public nhacungcap() {
         initComponents();
         setLocationRelativeTo(null);
-//        LoadDataToArray2();
         fillTable();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
 
-    public void getList(){
-        try {
-        listNCC = daoNCC.selectAll();
-        } catch (Exception e) {
-            MSGBox.alert(this, "Lỗi truy vấn dữ liệu!");
-        }
+    public static List<NhaCungCap> getList() {
+        return listNCC;
     }
 
     private void initTable(DefaultTableModel model) {
         Object[] columns = new Object[]{"Mã NCC", "Tên NCC", "SDT", "Email"};
-        model.setColumnIdentifiers(columns);        
+        model.setColumnIdentifiers(columns);
         tblList_NCC.setModel(model);
     }
-    
-    private void fillTable(){
+
+    private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tblList_NCC.getModel();
         initTable(model);
         model.setRowCount(0);
         try {
-            listNCC = daoNCC.selectAll();
+             listNCC = daoNCC.selectAll();
             for (NhaCungCap entity : listNCC) {
-                Object[] rows = {entity.getMaNCC(),entity.getTenNCC(),entity.getSDT(),entity.getEmail()};
+                Object[] rows = {entity.getMaNCC(), entity.getTenNCC(), entity.getSDT(), entity.getEmail()};
                 model.addRow(rows);
+//                listNCC.add(entity);
             }
             model.fireTableDataChanged();
         } catch (Exception e) {
             MSGBox.alert(this, "Lỗi truy vấn dữ liệu!");
+
         }
     }
-    
+
     private void findByAuto(String str) {
         DefaultTableModel model = (DefaultTableModel) tblList_NCC.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
@@ -72,9 +67,9 @@ public class nhacungcap extends javax.swing.JFrame {
         trs.setRowFilter(RowFilter.regexFilter(str));
     }
 
-    private void changeform(){
+    private void changeform() {
         int column = 0;
-        int rowsl = tblList_NCC.getSelectedRow();        
+        int rowsl = tblList_NCC.getSelectedRow();
         String value = tblList_NCC.getValueAt(rowsl, column).toString();
         lichsunhap ls = new lichsunhap();// obj created for class Second()
         try {
@@ -85,7 +80,7 @@ public class nhacungcap extends javax.swing.JFrame {
         ls.setVisible(true); // Open the Second.java window
         //dispose(); // Close the First.java window
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

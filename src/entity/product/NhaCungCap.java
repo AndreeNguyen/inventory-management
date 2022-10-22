@@ -24,6 +24,15 @@ public class NhaCungCap {
     public NhaCungCap() {
     }
 
+    public NhaCungCap(String MaNCC, String TenNCC, String SDT, String Email) {
+        this.MaNCC = MaNCC;
+        this.TenNCC = TenNCC;
+        this.SDT = SDT;
+        this.Email = Email;
+    }
+
+    
+    
     public NhaCungCap(String MaNCC, String TenNCC, String SDT, String Email, String DiaChi, String MaSoThue, String congty, String nhomNCC, Date ngayTaoDate) {
         this.MaNCC = MaNCC;
         this.TenNCC = TenNCC;
