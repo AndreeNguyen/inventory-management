@@ -4,13 +4,14 @@
  */
 package view.Nhacungcap;
 
+import controller.productDAO.LichSuDAO;
 import model.DatabaseHelper;
-import com.QLKH.entity.supplier.NhaCungCap;
 import controller.productDAO.NhaCungCapDao;
+import entity.product.LichSuGiaoDich;
 import entity.product.NhaCungCap;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -27,40 +28,95 @@ import utils.MSGBox;
 public class lichsunhap extends javax.swing.JFrame {
 
     DefaultTableModel tblModel;
-    ArrayList<NhaCungCap> list = new ArrayList<>();
+    public static List<LichSuGiaoDich> listLS = new ArrayList<>();
     nhacungcap ncc = new nhacungcap();
-    List<NhaCungCap> listNCC = nhacungcap.getList();
+    public static List<NhaCungCap> listNCC = nhacungcap.getList();
     NhaCungCapDao daoNCC = new NhaCungCapDao();
+    LichSuDAO daoLS = new LichSuDAO();
 
     public lichsunhap() {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        initTableHistory();
-        fillTableHistory();
+
     }
 
-    private void initTable(DefaultTableModel model) {
-        Object[] columns = new Object[]{"Tên nhà cung cấp","Tổng tiền","Trạng thái"};
-        model.setColumnIdentifiers(columns);        
-        tblList_History.setModel(model);
+    public static List<LichSuGiaoDich> getList() {
+        return listLS;
     }
     
-    private void fillTableHistory(){
-        DefaultTableModel model = (DefaultTableModel) tblList_History.getModel();
-        initTable(model);
-        model.setRowCount(0);
+    private void changeform() {
+        int column = 0;
+        int rowsl = tblList_History.getSelectedRow();
+        String value = tblList_History.getValueAt(rowsl, column).toString();
+        thanhtoan tt = new thanhtoan();// obj created for class Second()
         try {
-            List<KhoaHoc> listNH = daoKH.selectAll();
-            for (KhoaHoc kh : listNH) {
-                Object[] rows = {kh.getCodeKH(),kh.getNote(),kh.getDateBegin(),kh.getDateRegister()};
+            tt.getValue(value);//Execute the method my_update to pass str
+        } catch (ParseException ex) {
+
+        }
+        tt.setVisible(true); // Open the Second.java window
+        //dispose(); // Close the First.java window
+    }
+
+    private void initTableHistory(DefaultTableModel model) {
+        Object[] columns = new Object[]{"Mã phiếu", "Thành tiền", "Ngày đặt", "Nhân viên đặt", "Trạng thái"};
+        model.setColumnIdentifiers(columns);
+        tblList_History.setModel(model);
+    }
+
+    private void fillTableHistory() {
+        DefaultTableModel model = (DefaultTableModel) tblList_History.getModel();
+        initTableHistory(model);
+        model.setRowCount(0);
+        String maNCC = txtMaNCC.getText();
+        String selectLS = "{call sp_lichsugd(?)}";
+        try {
+            listLS = daoLS.selectBySql(selectLS, maNCC);
+            for (LichSuGiaoDich ls : listLS) {
+                String sta = "Chưa thanh toán";
+                if (ls.getTrangThai() == 1) {
+                    sta = "Đã thanh toán";
+                }
+                Object[] rows = {ls.getMaPhieu(), new BigDecimal(ls.getTien()), ls.getNgayDat(), ls.getTenNV(), sta};
                 model.addRow(rows);
             }
             model.fireTableDataChanged();
         } catch (Exception e) {
             MSGBox.alert(this, "Lỗi truy vấn dữ liệu!");
+            e.printStackTrace();
         }
     }
+
+    private void initTableDebt(DefaultTableModel model) {
+        Object[] columns = new Object[]{"Mã phiếu", "Thành tiền", "Ngày đặt", "Nhân viên đặt", "Trạng thái"};
+        model.setColumnIdentifiers(columns);
+        tblList_Debt.setModel(model);
+    }
+
+    private void fillTableDebt() {
+        DefaultTableModel model = (DefaultTableModel) tblList_Debt.getModel();
+        initTableDebt(model);
+        model.setRowCount(0);
+        String maNCC = txtMaNCC.getText();
+        String selectLS = "{call sp_lichsugdno(?)}";
+        try {
+            List<LichSuGiaoDich> listLS = daoLS.selectBySql(selectLS, maNCC);
+            for (LichSuGiaoDich ls : listLS) {
+                String sta = "Chưa thanh toán";
+                if (ls.getTrangThai() == 1) {
+                    sta = "Đã thanh toán";
+                }
+                Object[] rows = {ls.getMaPhieu(), new BigDecimal(ls.getTien()), ls.getNgayDat(), ls.getTenNV(), sta};
+                model.addRow(rows);
+            }
+            model.fireTableDataChanged();
+        } catch (Exception e) {
+            MSGBox.alert(this, "Lỗi truy vấn dữ liệu!");
+            e.printStackTrace();
+        }
+    }
+
     public void getValueNCC(String str) throws ParseException {
         txtMaNCC.setText(str);
         for (NhaCungCap ncc : listNCC) {
@@ -77,7 +133,7 @@ public class lichsunhap extends javax.swing.JFrame {
         trs.setRowFilter(RowFilter.regexFilter(str));
     }
 
-    private void update() {        
+    private void update() {
         if (MSGBox.confirm(this, "Bạn có muốn cập nhật Nhà Cung Cấp này?")) {
             NhaCungCap ncc = getForm();
             try {
@@ -126,6 +182,7 @@ public class lichsunhap extends javax.swing.JFrame {
         ncc.setCongty(txtCongTy.getText());
         return ncc;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,7 +198,7 @@ public class lichsunhap extends javax.swing.JFrame {
         jPanelBackground = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         roundPanel2 = new com.raven.swing.RoundPanel();
-        tblList_Debt = new javax.swing.JTabbedPane();
+        x = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -170,7 +227,7 @@ public class lichsunhap extends javax.swing.JFrame {
         tblList_History = new com.raven.swing.Table();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        table2 = new com.raven.swing.Table();
+        tblList_Debt = new com.raven.swing.Table();
         btnThanhToan = new javax.swing.JButton();
         roundPanel4 = new com.raven.swing.RoundPanel();
         jComboBox2 = new javax.swing.JComboBox<>();
@@ -234,6 +291,12 @@ public class lichsunhap extends javax.swing.JFrame {
 
         roundPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        x.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                xMouseClicked(evt);
+            }
+        });
+
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Mã nhà cung cấp:");
 
@@ -281,8 +344,6 @@ public class lichsunhap extends javax.swing.JFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-
-        txtMaNCC.setEnabled(false);
 
         txtTenNCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -403,8 +464,15 @@ public class lichsunhap extends javax.swing.JFrame {
                 .addGap(38, 38, 38))
         );
 
-        tblList_Debt.addTab("Thông tin nhà cung cấp", jPanel6);
+        x.addTab("Thông tin nhà cung cấp", jPanel6);
 
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
+
+        tblList_History.setForeground(new java.awt.Color(255, 255, 255));
         tblList_History.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -429,9 +497,16 @@ public class lichsunhap extends javax.swing.JFrame {
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
         );
 
-        tblList_Debt.addTab("Lịch sử giao dịch", jPanel3);
+        x.addTab("Lịch sử giao dịch", jPanel3);
 
-        table2.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
+        });
+
+        tblList_Debt.setForeground(new java.awt.Color(255, 255, 255));
+        tblList_Debt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -442,7 +517,12 @@ public class lichsunhap extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(table2);
+        tblList_Debt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblList_DebtMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblList_Debt);
 
         btnThanhToan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnThanhToan.setText("Thanh Toán");
@@ -472,7 +552,7 @@ public class lichsunhap extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        tblList_Debt.addTab("Nợ cần trả NCC", jPanel4);
+        x.addTab("Nợ cần trả NCC", jPanel4);
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -480,14 +560,14 @@ public class lichsunhap extends javax.swing.JFrame {
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tblList_Debt)
+                .addComponent(x)
                 .addContainerGap())
         );
         roundPanel2Layout.setVerticalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tblList_Debt)
+                .addComponent(x)
                 .addContainerGap())
         );
 
@@ -669,10 +749,7 @@ public class lichsunhap extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnHoanTacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoanTacActionPerformed
-
         this.setVisible(false);
-        nhacungcap ncc = new nhacungcap();
-        ncc.setVisible(true);
     }//GEN-LAST:event_btnHoanTacActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -684,6 +761,24 @@ public class lichsunhap extends javax.swing.JFrame {
 
         delete();
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void xMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xMouseClicked
+        fillTableHistory();
+        fillTableDebt();
+    }//GEN-LAST:event_xMouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+
+    }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void tblList_DebtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblList_DebtMouseClicked
+        btnThanhToan.setEnabled(true);
+
+    }//GEN-LAST:event_tblList_DebtMouseClicked
 
     /**
      * @param args the command line arguments
@@ -740,8 +835,7 @@ public class lichsunhap extends javax.swing.JFrame {
     private com.raven.swing.RoundPanel roundPanel2;
     private com.raven.swing.RoundPanel roundPanel3;
     private com.raven.swing.RoundPanel roundPanel4;
-    private com.raven.swing.Table table2;
-    private javax.swing.JTabbedPane tblList_Debt;
+    private com.raven.swing.Table tblList_Debt;
     private com.raven.swing.Table tblList_History;
     private javax.swing.JTextArea txaDiaChi;
     private javax.swing.JTextField txtCongTy;
@@ -753,5 +847,6 @@ public class lichsunhap extends javax.swing.JFrame {
     private javax.swing.JTextField txtNhomNCC;
     private javax.swing.JTextField txtSearch_History;
     private javax.swing.JTextField txtTenNCC;
+    private javax.swing.JTabbedPane x;
     // End of variables declaration//GEN-END:variables
 }
