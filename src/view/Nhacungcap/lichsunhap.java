@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -36,42 +37,35 @@ public class lichsunhap extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 //        initTableHistory();
-//        fillTableHistory();
+        fillTableHistory();
     }
 
-//    private void initTable(DefaultTableModel model) {
-//        Object[] columns = new Object[]{"Mã NCC", "Tên NCC", "SDT", "Email"};
-//        model.setColumnIdentifiers(columns);        
-//        tblKhoaHoc.setModel(model);
-//    }
-//    
-//    private void fillTableHistory(){
-//        DefaultTableModel model = (DefaultTableModel) tblKhoaHoc.getModel();
-//        initTable(model);
-//        model.setRowCount(0);
-//        try {
-//            List<KhoaHoc> listNH = daoKH.selectAll();
-//            for (KhoaHoc kh : listNH) {
-//                Object[] rows = {kh.getCodeKH(),kh.getNote(),kh.getDateBegin(),kh.getDateRegister()};
-//                model.addRow(rows);
-//            }
-//            model.fireTableDataChanged();
-//        } catch (Exception e) {
-//            MSGBox.alert(this, "Lỗi truy vấn dữ liệu!");
-//        }
-//    }
+    private void initTable(DefaultTableModel model) {
+        Object[] columns = new Object[]{"Tên nhà cung cấp","Tổng tiền","Trạng thái"};
+        model.setColumnIdentifiers(columns);        
+        tblList_History.setModel(model);
+    }
+    
+    private void fillTableHistory(){
+        DefaultTableModel model = (DefaultTableModel) tblList_History.getModel();
+        initTable(model);
+        model.setRowCount(0);
+        try {
+            List<KhoaHoc> listNH = daoKH.selectAll();
+            for (KhoaHoc kh : listNH) {
+                Object[] rows = {kh.getCodeKH(),kh.getNote(),kh.getDateBegin(),kh.getDateRegister()};
+                model.addRow(rows);
+            }
+            model.fireTableDataChanged();
+        } catch (Exception e) {
+            MSGBox.alert(this, "Lỗi truy vấn dữ liệu!");
+        }
+    }
     public void getValueNCC(String str) throws ParseException {
         txtMaNCC.setText(str);
         for (NhaCungCap ncc : listNCC) {
             if (txtMaNCC.getText().equalsIgnoreCase(ncc.getMaNCC())) {
-                txtTenNCC.setText(ncc.getTenNCC());
-                txaDiaChi.setText(ncc.getDiaChi());
-                txtDienThoai.setText(ncc.getSDT());
-                txtMaSoThue.setText(ncc.getMaSoThue());
-                txtEmail.setText(ncc.getEmail());
-                txtCongTy.setText(ncc.getCongty());
-                txtNhomNCC.setText(ncc.getNhomNCC());
-                txtNgayTao.setText(ncc.getNgayTaoDate().toString());
+                setForm(ncc);
             }
         }
     }
@@ -83,8 +77,9 @@ public class lichsunhap extends javax.swing.JFrame {
         trs.setRowFilter(RowFilter.regexFilter(str));
     }
 
-    private void update() {
-        if (MSGBox.confirm(this, "Bạn có muốn xoá chuyên đề này?")) {
+    private void update() {        
+        if (MSGBox.confirm(this, "Bạn có muốn cập nhật Nhà Cung Cấp này?")) {
+            NhaCungCap ncc = getForm();
             try {
                 daoNCC.update(ncc);
                 MSGBox.alert(this, "Cập nhật thành công");
@@ -101,7 +96,7 @@ public class lichsunhap extends javax.swing.JFrame {
                 daoNCC.delete(maNCC);
                 MSGBox.alert(this, "Xoá thành công!!");
             } catch (Exception e) {
-                MSGBox.alert(this, "Xoá thất bại!!");
+                MSGBox.alert(this, "Xoá thất bại!!");;
             }
         }
 //        }
@@ -119,6 +114,18 @@ public class lichsunhap extends javax.swing.JFrame {
         txtNgayTao.setText(ncc.getNgayTaoDate().toString());
     }
 
+    private NhaCungCap getForm() {
+        NhaCungCap ncc = new NhaCungCap();
+        ncc.setMaNCC(txtMaNCC.getText());
+        ncc.setTenNCC(txtTenNCC.getText());
+        ncc.setDiaChi(txaDiaChi.getText());
+        ncc.setEmail(txtEmail.getText());
+        ncc.setSDT(txtDienThoai.getText());
+        ncc.setMaSoThue(txtMaSoThue.getText());
+        ncc.setNhomNCC(txtNhomNCC.getText());
+        ncc.setCongty(txtCongTy.getText());
+        return ncc;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -264,9 +271,11 @@ public class lichsunhap extends javax.swing.JFrame {
 
         btnStop.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnStop.setText("Ngừng hoạt động");
+        btnStop.setEnabled(false);
 
         btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDelete.setText("Xoá");
+        btnDelete.setEnabled(false);
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -667,16 +676,12 @@ public class lichsunhap extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHoanTacActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn chỉnh sửa NCC này không?", "Đã sửa", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
-            return;
-        }
+
         update();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá NCC này không?", "Đã xoá", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
-            return;
-        }
+
         delete();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
