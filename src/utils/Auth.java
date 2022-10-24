@@ -4,7 +4,7 @@
  */
 package utils;
 
-import com.edusys.entity.NhanVien;
+import entity.product.NhanVien;
 
 /**
  *
