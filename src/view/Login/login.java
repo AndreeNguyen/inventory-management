@@ -54,16 +54,16 @@ public class login extends javax.swing.JFrame {
 
         pnlBackground.setBackground(new java.awt.Color(255, 255, 255));
 
-        pnlLogin.setBackground(new java.awt.Color(51, 51, 51));
+        pnlLogin.setBackground(new java.awt.Color(153, 255, 255));
 
         lblDangnhap.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblDangnhap.setForeground(new java.awt.Color(255, 255, 255));
+        lblDangnhap.setForeground(new java.awt.Color(51, 51, 255));
         lblDangnhap.setText("Đăng nhập");
 
-        lblUsername.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsername.setForeground(new java.awt.Color(51, 51, 255));
         lblUsername.setText("Username");
 
-        txtUsername.setBackground(new java.awt.Color(204, 0, 204));
+        txtUsername.setBackground(new java.awt.Color(255, 255, 204));
         txtUsername.setFont(txtUsername.getFont().deriveFont(txtUsername.getFont().getSize()+2f));
         txtUsername.setForeground(new java.awt.Color(255, 255, 255));
         txtUsername.setBorder(null);
@@ -76,10 +76,10 @@ public class login extends javax.swing.JFrame {
         lblValidateusername.setForeground(new java.awt.Color(255, 255, 255));
         lblValidateusername.setText("_____________________________________________________");
 
-        lblPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblPassword.setForeground(new java.awt.Color(51, 51, 255));
         lblPassword.setText("Password");
 
-        txtPassword.setBackground(new java.awt.Color(204, 0, 204));
+        txtPassword.setBackground(new java.awt.Color(255, 255, 204));
         txtPassword.setFont(txtPassword.getFont().deriveFont(txtPassword.getFont().getSize()+2f));
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
         txtPassword.setBorder(null);
@@ -93,9 +93,7 @@ public class login extends javax.swing.JFrame {
         lblValidatepassword.setForeground(new java.awt.Color(255, 255, 255));
         lblValidatepassword.setText("_____________________________________________________");
 
-        btnLogin.setBackground(new java.awt.Color(255, 255, 255));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnLogin.setForeground(new java.awt.Color(0, 0, 0));
         btnLogin.setText("LOGIN");
         btnLogin.setToolTipText("");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +159,7 @@ public class login extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 0));
+        jPanel2.setBackground(new java.awt.Color(102, 255, 102));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -262,7 +260,7 @@ public class login extends javax.swing.JFrame {
     private void conect() {
         try {
             Connection con = DatabaseHelper.oppenConnection();
-            String sql = "Select * from Nhanvien where username = ? and pass = ?";
+            String sql = "Select * from Nhanvien where  MaNV = ? and pass = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, txtUsername.getText());
             pst.setString(2, new String(txtPassword.getPassword()));
