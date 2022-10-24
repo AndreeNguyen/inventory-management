@@ -194,7 +194,6 @@ public class themsp extends javax.swing.JFrame {
         jdcDateSX.setDate(sdf = new SimpleDateFormat("yyyy-MM-dd").parse(model.getNSX()));
         jdcDateHetHan.setDate(sdf = new SimpleDateFormat("yyyy-MM-dd").parse(model.getNHH()));
         cboKho.setSelectedItem("Kho " + (model.getMaKho()).charAt(model.getMaKho().length() - 1));
-        System.out.println(tenNCC);
         cboNCC.setSelectedItem(tenNCC);
         
     }
@@ -215,10 +214,10 @@ public class themsp extends javax.swing.JFrame {
         return model;
     }
 
-    public String GetValueMa(String masp, String makho, String tenncc) {
+    public String GetValueMa(String Soluong, String tenKho, String maKho, String tenncc, String MaKhu) {
         txtMaSP.setEnabled(false);
         try {
-            SanPham model = daoSP.findByName(masp, makho);
+            SanPham model = daoSP.findByName(tenKho, maKho, Soluong, MaKhu);
             if (model != null) {
                 tenNCC =  tenncc;
                 this.setModel(model);

@@ -21,11 +21,12 @@ public class SanPham {
     private String MaKho;
     private String Khu;
     private int SoLuong;
-
+    private String tenKhoSP;
+    private String MaKhu;
     public SanPham() {
     }
 
-    public SanPham(String MaSP, String TenSp, float Gia, String DonVi, String LoaiSP, String NhaCC, String NSX, String NHH, String MaKho, String Khu, int SoLuong) {
+    public SanPham(String MaSP, String TenSp, float Gia, String DonVi, String LoaiSP, String NhaCC, String NSX, String NHH, String MaKho, String Khu, int SoLuong, String tenKhoSP, String MaKhu) {
         this.MaSP = MaSP;
         this.TenSp = TenSp;
         this.Gia = Gia;
@@ -37,10 +38,10 @@ public class SanPham {
         this.MaKho = MaKho;
         this.Khu = Khu;
         this.SoLuong = SoLuong;
+        this.tenKhoSP = tenKhoSP;
+        this.MaKhu = MaKhu;
     }
 
-    
-    
     public String getMaSP() {
         return MaSP;
     }
@@ -129,7 +130,23 @@ public class SanPham {
         this.SoLuong = SoLuong;
     }
 
+    public String getTenKhoSP() {
+        return tenKhoSP;
+    }
+
+    public void setTenKhoSP(String tenKhoSP) {
+        this.tenKhoSP = tenKhoSP;
+    }
+
+    public String getMaKhu() {
+        return MaKhu;
+    }
+
+    public void setMaKhu(String MaKhu) {
+        this.MaKhu = MaKhu;
+    }
+
     
-   
+    
 
 }

@@ -19,8 +19,6 @@ import entity.product.LoaiHang;
 
 public class danhmucsp extends javax.swing.JFrame {
 
-    DefaultTableModel tableModel;
-
     SanPhamDao daoSP = new SanPhamDao();
     KhoDao daoKho = new KhoDao();
     LoaiHangDao daoLH = new LoaiHangDao();
@@ -34,6 +32,7 @@ public class danhmucsp extends javax.swing.JFrame {
         setTitle("Danh mục sản phẩm");
         setLocationRelativeTo(null);
         initTable();
+        jpvisible1.setVisible(false);
         tblDMSP.getColumn("Mã SP").setMinWidth(0);
         tblDMSP.getColumn("Mã SP").setMaxWidth(0);
         tblDMSP.getColumn("Mã SP").setWidth(0);
@@ -49,22 +48,46 @@ public class danhmucsp extends javax.swing.JFrame {
         loaddata();
         loadcboKho();
         loadcboLoaiHang();
+        loadLayMaKho();
     }
 
+    DefaultTableModel tableModel;
     private void initTable() {
 
         tableModel = new DefaultTableModel();
-        Object[] Columns = new Object[]{"Mã SP", "Tên SP", "Loại SP", "Số lượng", "Giá", "ĐVT", "Khu", "Mã Kho", "Tên NCC"};
+        Object[] Columns = new Object[]{"Mã SP", "Tên SP", "Loại SP", "Số lượng", "Giá", "ĐVT", "Khu", "Mã Kho", "Tên NCC","Tên Kho","Mã Khu"};
         tableModel.setColumnIdentifiers(Columns);
         tblDMSP.setModel(tableModel);
 
+    }
+    
+
+    private void loadLayMaKho() {
+
+        try {
+            tableModel = (DefaultTableModel) tblgetMaKho.getModel();
+            tableModel.setRowCount(0);
+            List<Kho> list = daoKho.select();
+            for (Kho kh : list) {
+                Object[] row = {
+                    kh.getMaKho(),
+                    kh.getTenKho(),
+                    kh.getKhuVuc(),
+                    kh.getManv()
+                };
+                tableModel.addRow(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi truy vấn dữ liệu", "Lỗi ", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void loaddata() {
 
         try {
-            DefaultTableModel model = (DefaultTableModel) tblDMSP.getModel();
-            model.setRowCount(0);
+            tableModel = (DefaultTableModel) tblDMSP.getModel();
+            tableModel.setRowCount(0);
             List<SanPham> list = daoSP.select();
             for (SanPham sp : list) {
                 Object[] row = {
@@ -76,9 +99,11 @@ public class danhmucsp extends javax.swing.JFrame {
                     sp.getDonVi(),
                     sp.getKhu(),
                     sp.getMaKho(),
-                    sp.getNhaCC()
+                    sp.getNhaCC(),
+                    sp.getTenKhoSP(),
+                    sp.getMaKhu(),
                 };
-                model.addRow(row);
+                tableModel.addRow(row);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,7 +112,6 @@ public class danhmucsp extends javax.swing.JFrame {
     }
 
     private void loadcboKho() {
-        cboKho.addItem("Kho Tổng");
         try {
 
             List<Kho> list = daoKho.select();
@@ -100,7 +124,6 @@ public class danhmucsp extends javax.swing.JFrame {
     }
 
     private void loadcboLoaiHang() {
-        cboNhomHang.addItem("Tổng thể");
         try {
             List<LoaiHang> list = daoLH.select();
             for (LoaiHang lh : list) {
@@ -132,6 +155,9 @@ public class danhmucsp extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cboNhomHang = new javax.swing.JComboBox<>();
         roundPanel1 = new com.raven.swing.RoundPanel();
+        jpvisible1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblgetMaKho = new javax.swing.JTable();
         roundPanel3 = new com.raven.swing.RoundPanel();
         jLabel1 = new javax.swing.JLabel();
         txtSreach = new javax.swing.JTextField();
@@ -210,9 +236,9 @@ public class danhmucsp extends javax.swing.JFrame {
         roundPanel2.setLayout(roundPanel2Layout);
         roundPanel2Layout.setHorizontalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
                 .addContainerGap())
         );
         roundPanel2Layout.setVerticalGroup(
@@ -227,6 +253,7 @@ public class danhmucsp extends javax.swing.JFrame {
 
         jLabel2.setText("Nhóm hàng");
 
+        cboNhomHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tổng Thể" }));
         cboNhomHang.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboNhomHangItemStateChanged(evt);
@@ -258,15 +285,48 @@ public class danhmucsp extends javax.swing.JFrame {
 
         roundPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblgetMaKho.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblgetMaKho);
+
+        javax.swing.GroupLayout jpvisible1Layout = new javax.swing.GroupLayout(jpvisible1);
+        jpvisible1.setLayout(jpvisible1Layout);
+        jpvisible1Layout.setHorizontalGroup(
+            jpvisible1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+        );
+        jpvisible1Layout.setVerticalGroup(
+            jpvisible1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpvisible1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout roundPanel1Layout = new javax.swing.GroupLayout(roundPanel1);
         roundPanel1.setLayout(roundPanel1Layout);
         roundPanel1Layout.setHorizontalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(roundPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jpvisible1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         roundPanel1Layout.setVerticalGroup(
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 136, Short.MAX_VALUE)
+            .addGroup(roundPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jpvisible1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         roundPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -294,6 +354,7 @@ public class danhmucsp extends javax.swing.JFrame {
 
         jLabel3.setText("Seach");
 
+        cboKho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tổng Thể" }));
         cboKho.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboKhoItemStateChanged(evt);
@@ -349,7 +410,7 @@ public class danhmucsp extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Import))
                     .addComponent(roundPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanelBackgroundLayout.setVerticalGroup(
             jPanelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,33 +496,52 @@ public class danhmucsp extends javax.swing.JFrame {
 
     private void cboNhomHangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboNhomHangItemStateChanged
 
-        if (cboNhomHang.getSelectedItem().equals("Tổng thể")) {
+        if (cboNhomHang.getSelectedItem().equals("Tổng Thể")) {
             loaddata();
             return;
         }
+        
         String TenLH = String.valueOf(cboNhomHang.getSelectedItem());
-        DefaultTableModel model = (DefaultTableModel) tblDMSP.getModel();
-        model.setRowCount(0);
+        tableModel = (DefaultTableModel) tblDMSP.getModel();
+        tableModel.setRowCount(0);
 
         List<Object[]> list = daoSP.getLoaiSPtoTable(TenLH);
         for (Object[] row : list) {
-            model.addRow(row);
+            tableModel.addRow(row);
         }
     }//GEN-LAST:event_cboNhomHangItemStateChanged
 
+    private void findBycboKho(String str) {
+        tableModel = (DefaultTableModel) tblgetMaKho.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(tableModel);
+        tblgetMaKho.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter(str));
+//        tblDMSP.setPreferredScrollableViewportSize(tblDMSP.getPreferredSize());
+//        tblDMSP.setFillsViewportHeight(true);
+
+    }
+
     private void cboKhoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboKhoItemStateChanged
-        if (cboKho.getSelectedItem().equals("Kho Tổng")) {
+        if (cboKho.getSelectedItem().equals("Tổng Thể")) {
             loaddata();
             return;
         }
-        String Kho = String.valueOf(cboKho.getSelectedItem());
-        DefaultTableModel model = (DefaultTableModel) tblDMSP.getModel();
-        model.setRowCount(0);
+        String tenkho = String.valueOf(cboKho.getSelectedItem());
+        findBycboKho(tenkho);
+        if (tblgetMaKho.getRowCount() == 0) {
+        } else {
+            String masp = tblgetMaKho.getValueAt(0, 0).toString();
+            String Kho = String.valueOf(cboKho.getSelectedItem());
+            tableModel = (DefaultTableModel) tblDMSP.getModel();
+            tableModel.setRowCount(0);
 
-        List<Object[]> list = daoSP.getTenKhotoTable(Kho);
-        for (Object[] row : list) {
-            model.addRow(row);
+            List<Object[]> list = daoSP.getTenKhotoTable(Kho, masp);
+            for (Object[] row : list) {
+                tableModel.addRow(row);
+            }
         }
+
+
     }//GEN-LAST:event_cboKhoItemStateChanged
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -472,19 +552,23 @@ public class danhmucsp extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemActionPerformed
 
     public void changeForm() {
-        int columnMaSP = 0;
+        int columSoLuong = 3;
         int columnMaKho = 7;
         int columntenNCC = 8;
+        int columnTenKho = 9;
+        int columnMaKhu = 10;
         int rowsl = tblDMSP.getSelectedRow();
         if (rowsl == -1) {
             JOptionPane.showMessageDialog(null, "Mời bạn chọn 1 sản phẩm để xem chi tiết", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String masp = tblDMSP.getModel().getValueAt(rowsl, columnMaSP).toString();
-        String makho = tblDMSP.getModel().getValueAt(rowsl, columnMaKho).toString();
-        String tenncc = tblDMSP.getModel().getValueAt(rowsl, columntenNCC).toString();        
+        String SoLuong = tblDMSP.getModel().getValueAt(rowsl, columSoLuong).toString();
+        String tenKho = tblDMSP.getModel().getValueAt(rowsl, columnTenKho).toString();
+        String maKho = tblDMSP.getModel().getValueAt(rowsl, columnMaKho).toString();
+        String tenNcc = tblDMSP.getModel().getValueAt(rowsl, columntenNCC).toString();
+        String maKhu = tblDMSP.getModel().getValueAt(rowsl, columnMaKhu).toString();
         themsp ct = new themsp();
-        ct.GetValueMa(masp, makho, tenncc);
+        ct.GetValueMa(SoLuong,tenKho, maKho, tenNcc,maKhu);
         ct.setTitle("Xem Chi Tiết");
         ct.setVisible(true);
     }
@@ -542,12 +626,15 @@ public class danhmucsp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelBackground;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel jpvisible1;
     private com.raven.swing.progress.Progress progress8;
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
     private com.raven.swing.RoundPanel roundPanel3;
     private com.raven.swing.RoundPanel roundPanel4;
     private javax.swing.JTable tblDMSP;
+    private javax.swing.JTable tblgetMaKho;
     private javax.swing.JTextField txtSreach;
     // End of variables declaration//GEN-END:variables
 }
