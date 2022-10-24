@@ -4,7 +4,7 @@
  */
 package utils;
 
-import entity.product.NhanVien;
+import entity.product.Nhanvien;
 
 /**
  *
@@ -12,7 +12,7 @@ import entity.product.NhanVien;
  */
 public class Auth {
     //đối tượng chưa thông tin đăng nhập
-    public static NhanVien user ;
+    public static Nhanvien user ;
     
     public static void clear(){
         Auth.user = null;
@@ -24,7 +24,7 @@ public class Auth {
     
     public static boolean isManager(){
         boolean role = false;
-        if (Auth.user.getRole() == 1) {
+        if (Auth.user.getChucVu() == 1) {
             role = true;
         }
         return Auth.isLogin() && role;

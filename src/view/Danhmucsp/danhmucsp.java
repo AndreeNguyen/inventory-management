@@ -419,6 +419,7 @@ public class danhmucsp extends javax.swing.JFrame {
 
     private void Import() {
         //Đang cập nhật
+        JOptionPane.showMessageDialog(this, "Tính năng đang được phát triển");
     }
 
     private void ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportActionPerformed
