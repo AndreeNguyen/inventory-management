@@ -4,18 +4,18 @@
  */
 package view.Danhmucsp;
 
-import com.QLKH.controller.productDAO.KhoDao;
-import com.QLKH.controller.productDAO.LoaiHangDao;
-import com.QLKH.controller.productDAO.SanPhamDao;
-import com.QLKH.entity.product.Kho;
-import com.QLKH.entity.product.SanPham;
+import controller.productDAO.KhoDao;
+import controller.productDAO.LoaiHangDao;
+import controller.productDAO.SanPhamDao;
+import entity.product.Kho;
+import entity.product.SanPham;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import com.QLKH.entity.product.LoaiHang;
+import entity.product.LoaiHang;
 
 public class danhmucsp extends javax.swing.JFrame {
 

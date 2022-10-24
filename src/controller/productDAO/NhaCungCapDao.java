@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.QLKH.controller.productDAO;
+package controller.productDAO;
 
 
-import com.QLKH.entity.product.NhaCungCap;
-import com.QLKH.model.DatabaseHelper;
+import entity.product.NhaCungCap;
+import model.DatabaseHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

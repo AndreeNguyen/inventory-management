@@ -4,14 +4,14 @@
  */
 package view.Danhmucsp;
 
-import com.QLKH.controller.productDAO.KhoDao;
-import com.QLKH.controller.productDAO.LoaiHangDao;
-import com.QLKH.controller.productDAO.NhaCungCapDao;
-import com.QLKH.controller.productDAO.SanPhamDao;
-import com.QLKH.entity.product.Kho;
-import com.QLKH.entity.product.LoaiHang;
-import com.QLKH.entity.product.NhaCungCap;
-import com.QLKH.entity.product.SanPham;
+import controller.productDAO.KhoDao;
+import controller.productDAO.LoaiHangDao;
+import controller.productDAO.NhaCungCapDao;
+import controller.productDAO.SanPhamDao;
+import entity.product.Kho;
+import entity.product.LoaiHang;
+import entity.product.NhaCungCap;
+import entity.product.SanPham;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

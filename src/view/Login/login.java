@@ -4,7 +4,7 @@
  */
 package view.Login;
 
-import com.QLKH.model.DatabaseHelper;
+import model.DatabaseHelper;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
