@@ -190,7 +190,6 @@ Chart.start();
 
         jPanel5.setOpaque(false);
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Kho tổng");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -233,11 +232,9 @@ Chart.start();
         pnlBanhang.setBackground(new java.awt.Color(255, 255, 255));
 
         Chart.setBackground(new java.awt.Color(0, 0, 0));
-        Chart.setForeground(new java.awt.Color(0, 0, 0));
         Chart.setToolTipText("");
 
         lblBieudobanhang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBieudobanhang.setForeground(new java.awt.Color(0, 0, 0));
         lblBieudobanhang.setText("Biểu đồ bán hàng");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay", "Tuần trước", "Tháng trước" }));
@@ -282,10 +279,8 @@ Chart.start();
         );
 
         pnlSucchuakho.setBackground(new java.awt.Color(255, 255, 255));
-        pnlSucchuakho.setForeground(new java.awt.Color(0, 0, 0));
 
         lblBieudosucchuakho.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBieudosucchuakho.setForeground(new java.awt.Color(0, 0, 0));
         lblBieudosucchuakho.setText("Biểu đồ sức chứa kho");
 
         pnlChart1.setOpaque(false);
@@ -294,7 +289,6 @@ Chart.start();
         Chart1.setForeground(new java.awt.Color(255, 0, 51));
         Chart1.setValue(60);
 
-        lblChart1.setForeground(new java.awt.Color(0, 0, 0));
         lblChart1.setText("Kho tổng");
 
         javax.swing.GroupLayout pnlChart1Layout = new javax.swing.GroupLayout(pnlChart1);
@@ -323,7 +317,6 @@ Chart.start();
         Chart2.setBackground(new java.awt.Color(51, 51, 255));
         Chart2.setForeground(new java.awt.Color(255, 0, 51));
 
-        lblChart2.setForeground(new java.awt.Color(0, 0, 0));
         lblChart2.setText("Kho 1");
 
         javax.swing.GroupLayout pnlChart2Layout = new javax.swing.GroupLayout(pnlChart2);
@@ -352,7 +345,6 @@ Chart.start();
         Chart3.setBackground(new java.awt.Color(51, 51, 255));
         Chart3.setForeground(new java.awt.Color(255, 0, 51));
 
-        lblChart3.setForeground(new java.awt.Color(0, 0, 0));
         lblChart3.setText("Kho 2");
 
         javax.swing.GroupLayout pnlChart3Layout = new javax.swing.GroupLayout(pnlChart3);
@@ -381,7 +373,6 @@ Chart.start();
         Chart4.setBackground(new java.awt.Color(51, 51, 255));
         Chart4.setForeground(new java.awt.Color(255, 0, 51));
 
-        lblChart4.setForeground(new java.awt.Color(0, 0, 0));
         lblChart4.setText("Kho 3");
 
         javax.swing.GroupLayout pnlChart4Layout = new javax.swing.GroupLayout(pnlChart4);
