@@ -44,11 +44,11 @@ public class lichsunhap extends javax.swing.JFrame {
     public static List<LichSuGiaoDich> getList() {
         return listLS;
     }
-    
+
     private void changeform() {
         int column = 0;
-        int rowsl = tblList_History.getSelectedRow();
-        String value = tblList_History.getValueAt(rowsl, column).toString();
+        int rowsl = tblList_Debt.getSelectedRow();
+        String value = tblList_Debt.getValueAt(rowsl, column).toString();
         thanhtoan tt = new thanhtoan();// obj created for class Second()
         try {
             tt.getValue(value);//Execute the method my_update to pass str
@@ -65,7 +65,7 @@ public class lichsunhap extends javax.swing.JFrame {
         tblList_History.setModel(model);
     }
 
-    private void fillTableHistory() {
+    void fillTableHistory() {
         DefaultTableModel model = (DefaultTableModel) tblList_History.getModel();
         initTableHistory(model);
         model.setRowCount(0);
@@ -94,7 +94,7 @@ public class lichsunhap extends javax.swing.JFrame {
         tblList_Debt.setModel(model);
     }
 
-    private void fillTableDebt() {
+    void fillTableDebt() {
         DefaultTableModel model = (DefaultTableModel) tblList_Debt.getModel();
         initTableDebt(model);
         model.setRowCount(0);
@@ -744,8 +744,7 @@ public class lichsunhap extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTenNCCActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        thanhtoan tt = new thanhtoan();
-        tt.setVisible(true);
+        changeform();
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnHoanTacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoanTacActionPerformed
