@@ -89,7 +89,7 @@ public class DatabaseHelper {
             String DB_URL = "jdbc:sqlserver://localhost:1433;"
                     + "databaseName=QUANLYKHOHANGNhom1;";
             String USER_NAME = "sa";
-            String PASSWORD = "";
+            String PASSWORD = "songlong";
             Connection con = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);            
                 return con;
         } catch (ClassNotFoundException ex) {

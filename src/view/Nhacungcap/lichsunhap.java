@@ -159,11 +159,7 @@ public class lichsunhap extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txaDiaChi = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblList_History = new com.raven.swing.Table();
         jPanel4 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table2 = new com.raven.swing.Table();
         btnThanhToan = new javax.swing.JButton();
         roundPanel4 = new com.raven.swing.RoundPanel();
         jComboBox2 = new javax.swing.JComboBox<>();
@@ -396,44 +392,18 @@ public class lichsunhap extends javax.swing.JFrame {
 
         tblList_Debt.addTab("Thông tin nhà cung cấp", jPanel6);
 
-        tblList_History.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(tblList_History);
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3)
+            .addGap(0, 776, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         tblList_Debt.addTab("Lịch sử giao dịch", jPanel3);
-
-        table2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(table2);
 
         btnThanhToan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnThanhToan.setText("Thanh Toán");
@@ -448,17 +418,15 @@ public class lichsunhap extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(611, Short.MAX_VALUE)
                 .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addContainerGap(389, Short.MAX_VALUE)
                 .addComponent(btnThanhToan)
                 .addGap(17, 17, 17))
         );
@@ -727,17 +695,13 @@ public class lichsunhap extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanelBackground;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private com.raven.swing.progress.Progress progress8;
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
     private com.raven.swing.RoundPanel roundPanel3;
     private com.raven.swing.RoundPanel roundPanel4;
-    private com.raven.swing.Table table2;
     private javax.swing.JTabbedPane tblList_Debt;
-    private com.raven.swing.Table tblList_History;
     private javax.swing.JTextArea txaDiaChi;
     private javax.swing.JTextField txtCongTy;
     private javax.swing.JTextField txtDienThoai;
