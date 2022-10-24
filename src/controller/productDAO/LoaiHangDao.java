@@ -4,8 +4,8 @@
  */
 package controller.productDAO;
 
-import model.DatabaseHelper;
 import entity.product.LoaiHang;
+import model.DatabaseHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
