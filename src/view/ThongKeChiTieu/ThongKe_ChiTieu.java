@@ -5,7 +5,7 @@
 package view.ThongKeChiTieu;
 
 
-import view.ThongKeDoanhThu.ThongKe_CT;
+import entity.ThongKeDoanhThu.ThongKe_CT;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

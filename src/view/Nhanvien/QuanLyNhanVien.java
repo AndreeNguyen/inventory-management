@@ -24,6 +24,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import model.DatabaseHelper;
 import entity.product.Nhanvien;
+import view.Danhmucsp.danhmucsp;
+import view.Nhacungcap.nhacungcap;
+import view.NhapXuat.DATHANG;
+import view.ThongKeChiTieu.DoanhThu_Tong;
+import view.ThongKeChiTieu.ThongKe_ChiTieu;
+import view.ThongKeChiTieu.ThongKe_DTTung_CH;
+import view.Tongquan.tongquan;
 
 /**
  *
@@ -187,12 +194,19 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblnhanvien = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuBar5 = new javax.swing.JMenuBar();
+        mTongquan4 = new javax.swing.JMenu();
+        mDanhmucsp = new javax.swing.JMenu();
+        mhanghoa = new javax.swing.JMenu();
+        mNhanvien = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        mChamcong = new javax.swing.JMenu();
+        mLuong = new javax.swing.JMenu();
+        mNhacungcap = new javax.swing.JMenu();
+        mThongke = new javax.swing.JMenu();
+        mDoanhthutong = new javax.swing.JMenu();
+        mDoanhthutungcuahang = new javax.swing.JMenu();
+        mChitieu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -297,33 +311,98 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
 
         jLabel3.setText("Tìm Kiếm");
 
-        jMenu1.setText("Nhân Viên");
+        jMenuBar5.setBorder(null);
+        jMenuBar5.setForeground(new java.awt.Color(255, 255, 255));
 
-        jMenuItem1.setText("QLNV");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+        mTongquan4.setText("Tổng quan");
+        mTongquan4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mTongquan4MouseClicked(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenuBar5.add(mTongquan4);
 
-        jMenuItem2.setText("Chấm công");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("Lương");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+        mDanhmucsp.setText("Danh mục sản phẩm");
+        mDanhmucsp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDanhmucspMouseClicked(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenuBar5.add(mDanhmucsp);
 
-        jMenuBar1.add(jMenu1);
+        mhanghoa.setText("Nhập xuất hàng hoá");
+        mhanghoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mhanghoaMouseClicked(evt);
+            }
+        });
+        jMenuBar5.add(mhanghoa);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        mNhanvien.setText("Nhân viên");
 
-        setJMenuBar(jMenuBar1);
+        jMenuItem1.setText("Quản lí nhân viên");
+        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem1MouseClicked(evt);
+            }
+        });
+        mNhanvien.add(jMenuItem1);
+
+        mChamcong.setText("Chấm công");
+        mChamcong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mChamcongMouseClicked(evt);
+            }
+        });
+        mNhanvien.add(mChamcong);
+
+        mLuong.setText("Lương");
+        mLuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mLuongMouseClicked(evt);
+            }
+        });
+        mNhanvien.add(mLuong);
+
+        jMenuBar5.add(mNhanvien);
+
+        mNhacungcap.setText("Nhà cung cấp");
+        mNhacungcap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mNhacungcapMouseClicked(evt);
+            }
+        });
+        jMenuBar5.add(mNhacungcap);
+
+        mThongke.setText("Thống kê");
+
+        mDoanhthutong.setText("Doanh thu tổng");
+        mDoanhthutong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDoanhthutongMouseClicked(evt);
+            }
+        });
+        mThongke.add(mDoanhthutong);
+
+        mDoanhthutungcuahang.setText("Doanh thu từng cửa hàng");
+        mDoanhthutungcuahang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDoanhthutungcuahangMouseClicked(evt);
+            }
+        });
+        mThongke.add(mDoanhthutungcuahang);
+
+        mChitieu.setText("Chi tiêu");
+        mChitieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mChitieuMouseClicked(evt);
+            }
+        });
+        mThongke.add(mChitieu);
+
+        jMenuBar5.add(mThongke);
+
+        setJMenuBar(jMenuBar5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -409,14 +488,6 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     private void cboKhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboKhoActionPerformed
         // TODO add your handling code here:
         SelectKho();
@@ -428,12 +499,12 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
         this.btnthemnv = btnthemnv;
         this.cboKho = cboKho;
         this.jLabel1 = jLabel1;       
-        this.jMenu1 = jMenu1;
-        this.jMenu2 = jMenu2;
-        this.jMenuBar1 = jMenuBar1;
-        this.jMenuItem1 = jMenuItem1;
-        this.jMenuItem2 = jMenuItem2;
-        this.jMenuItem3 = jMenuItem3;
+//        this.jMenu1 = jMenu1;
+//        this.jMenu2 = jMenu2;
+//        this.jMenuBar1 = jMenuBar1;
+//        this.jMenuItem1 = jMenuItem1;
+//        this.jMenuItem2 = jMenuItem2;
+//        this.jMenuItem3 = jMenuItem3;
         this.jPanel1 = jPanel1;
         this.jPanel2 = jPanel2;
         this.jPanel3 = jPanel3;
@@ -453,6 +524,56 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
             changeform();
          }
     }//GEN-LAST:event_tblnhanvienMousePressed
+
+    private void mTongquan4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mTongquan4MouseClicked
+        new tongquan().setVisible(true);
+        this.setVisible(true);
+    }//GEN-LAST:event_mTongquan4MouseClicked
+
+    private void mDanhmucspMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDanhmucspMouseClicked
+        new danhmucsp().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDanhmucspMouseClicked
+
+    private void mhanghoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mhanghoaMouseClicked
+        new DATHANG().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mhanghoaMouseClicked
+
+    private void mChamcongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mChamcongMouseClicked
+        new chamcong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mChamcongMouseClicked
+
+    private void mLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mLuongMouseClicked
+        new luong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mLuongMouseClicked
+
+    private void mNhacungcapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mNhacungcapMouseClicked
+        new nhacungcap().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mNhacungcapMouseClicked
+
+    private void mDoanhthutongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDoanhthutongMouseClicked
+        new DoanhThu_Tong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDoanhthutongMouseClicked
+
+    private void mDoanhthutungcuahangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDoanhthutungcuahangMouseClicked
+        new ThongKe_ChiTieu().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDoanhthutungcuahangMouseClicked
+
+    private void mChitieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mChitieuMouseClicked
+        new ThongKe_DTTung_CH().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mChitieuMouseClicked
+
+    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
+        new QuanLyNhanVien().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -495,17 +616,24 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboKho;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar5;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenu mChamcong;
+    private javax.swing.JMenu mChitieu;
+    private javax.swing.JMenu mDanhmucsp;
+    private javax.swing.JMenu mDoanhthutong;
+    private javax.swing.JMenu mDoanhthutungcuahang;
+    private javax.swing.JMenu mLuong;
+    private javax.swing.JMenu mNhacungcap;
+    private javax.swing.JMenu mNhanvien;
+    private javax.swing.JMenu mThongke;
+    private javax.swing.JMenu mTongquan4;
+    private javax.swing.JMenu mhanghoa;
     private javax.swing.JTable tblnhanvien;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,8 +5,8 @@
 package view.ThongKeChiTieu;
 
 
-import view.ThongKeDoanhThu.ThongKe_CT;
-import view.ThongKeDoanhThu.ThongKe_TCH;
+import entity.ThongKeDoanhThu.ThongKe_CT;
+import entity.ThongKeDoanhThu.ThongKe_TCH;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.Connection;

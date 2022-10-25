@@ -56,6 +56,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="T&#x1ed5;ng quan"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mTongquanMouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mDanhmucsp">
           <Properties>
@@ -67,8 +70,11 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mhanghoa">
           <Properties>
-            <Property name="text" type="java.lang.String" value="H&#xe0;ng h&#xf3;a"/>
+            <Property name="text" type="java.lang.String" value="Nh&#x1ead;p xu&#x1ea5;t h&#xe0;ng ho&#xe1;"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mhanghoaMouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mNhanvien">
           <Properties>
@@ -79,11 +85,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ch&#x1ea5;m c&#xf4;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mChamcongMouseClicked"/>
+              </Events>
             </Menu>
             <Menu class="javax.swing.JMenu" name="mLuong">
               <Properties>
                 <Property name="text" type="java.lang.String" value="L&#x1b0;&#x1a1;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mLuongMouseClicked"/>
+              </Events>
             </Menu>
           </SubComponents>
         </Menu>
@@ -91,18 +103,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Nh&#xe0; cung c&#x1ea5;p"/>
           </Properties>
-          <SubComponents>
-            <Menu class="javax.swing.JMenu" name="mLichsunhap">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="L&#x1ecb;ch s&#x1eed; nh&#x1ead;p"/>
-              </Properties>
-            </Menu>
-            <Menu class="javax.swing.JMenu" name="mNonhacungcap">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="N&#x1ee3; NCC"/>
-              </Properties>
-            </Menu>
-          </SubComponents>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mNhacungcapMouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mThongke">
           <Properties>
@@ -113,16 +116,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Doanh thu t&#x1ed5;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mDoanhthutongMouseClicked"/>
+              </Events>
             </Menu>
             <Menu class="javax.swing.JMenu" name="mDoanhthutungcuahang">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Doanh thu t&#x1eeb;ng c&#x1eed;a h&#xe0;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mDoanhthutungcuahangMouseClicked"/>
+              </Events>
             </Menu>
             <Menu class="javax.swing.JMenu" name="mChitieu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Chi ti&#xea;u"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mChitieuMouseClicked"/>
+              </Events>
             </Menu>
           </SubComponents>
         </Menu>

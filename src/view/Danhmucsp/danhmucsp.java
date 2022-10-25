@@ -16,6 +16,15 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import entity.product.LoaiHang;
+import view.Nhacungcap.nhacungcap;
+import view.Nhanvien.QuanLyNhanVien;
+import view.Nhanvien.chamcong;
+import view.Nhanvien.luong;
+import view.NhapXuat.DATHANG;
+import view.ThongKeChiTieu.DoanhThu_Tong;
+import view.ThongKeChiTieu.ThongKe_ChiTieu;
+import view.ThongKeChiTieu.ThongKe_DTTung_CH;
+import view.Tongquan.tongquan;
 
 public class danhmucsp extends javax.swing.JFrame {
 
@@ -166,15 +175,19 @@ public class danhmucsp extends javax.swing.JFrame {
         btnThem = new javax.swing.JButton();
         btnXemCT = new javax.swing.JButton();
         Import = new javax.swing.JButton();
-        jMenuBar = new javax.swing.JMenuBar();
-        MTongquan = new javax.swing.JMenu();
-        MDanhmucsp = new javax.swing.JMenu();
-        MHanghoa = new javax.swing.JMenu();
-        MNhaphang = new javax.swing.JMenu();
-        MXuathang = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
+        jMenuBar5 = new javax.swing.JMenuBar();
+        mTongquan4 = new javax.swing.JMenu();
+        mDanhmucsp = new javax.swing.JMenu();
+        mhanghoa = new javax.swing.JMenu();
+        mNhanvien = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        mChamcong = new javax.swing.JMenu();
+        mLuong = new javax.swing.JMenu();
+        mNhacungcap = new javax.swing.JMenu();
+        mThongke = new javax.swing.JMenu();
+        mDoanhthutong = new javax.swing.JMenu();
+        mDoanhthutungcuahang = new javax.swing.JMenu();
+        mChitieu = new javax.swing.JMenu();
 
         jPanel5.setOpaque(false);
 
@@ -442,35 +455,98 @@ public class danhmucsp extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jMenuBar.setBorder(null);
-        jMenuBar.setForeground(new java.awt.Color(255, 255, 255));
+        jMenuBar5.setBorder(null);
+        jMenuBar5.setForeground(new java.awt.Color(255, 255, 255));
 
-        MTongquan.setText("Tổng quan");
-        jMenuBar.add(MTongquan);
+        mTongquan4.setText("Tổng quan");
+        mTongquan4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mTongquan4MouseClicked(evt);
+            }
+        });
+        jMenuBar5.add(mTongquan4);
 
-        MDanhmucsp.setText("Danh mục sản phẩm");
-        jMenuBar.add(MDanhmucsp);
+        mDanhmucsp.setText("Danh mục sản phẩm");
+        mDanhmucsp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDanhmucspMouseClicked(evt);
+            }
+        });
+        jMenuBar5.add(mDanhmucsp);
 
-        MHanghoa.setText("Hàng hóa");
+        mhanghoa.setText("Nhập xuất hàng hoá");
+        mhanghoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mhanghoaMouseClicked(evt);
+            }
+        });
+        jMenuBar5.add(mhanghoa);
 
-        MNhaphang.setText("Nhập hàng");
-        MHanghoa.add(MNhaphang);
+        mNhanvien.setText("Nhân viên");
 
-        MXuathang.setText("Xuất hàng");
-        MHanghoa.add(MXuathang);
+        jMenuItem1.setText("Quản lí nhân viên");
+        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem1MouseClicked(evt);
+            }
+        });
+        mNhanvien.add(jMenuItem1);
 
-        jMenuBar.add(MHanghoa);
+        mChamcong.setText("Chấm công");
+        mChamcong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mChamcongMouseClicked(evt);
+            }
+        });
+        mNhanvien.add(mChamcong);
 
-        jMenu4.setText("Nhân viên");
-        jMenuBar.add(jMenu4);
+        mLuong.setText("Lương");
+        mLuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mLuongMouseClicked(evt);
+            }
+        });
+        mNhanvien.add(mLuong);
 
-        jMenu5.setText("Nhà cung cấp");
-        jMenuBar.add(jMenu5);
+        jMenuBar5.add(mNhanvien);
 
-        jMenu6.setText("Thống kê");
-        jMenuBar.add(jMenu6);
+        mNhacungcap.setText("Nhà cung cấp");
+        mNhacungcap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mNhacungcapMouseClicked(evt);
+            }
+        });
+        jMenuBar5.add(mNhacungcap);
 
-        setJMenuBar(jMenuBar);
+        mThongke.setText("Thống kê");
+
+        mDoanhthutong.setText("Doanh thu tổng");
+        mDoanhthutong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDoanhthutongMouseClicked(evt);
+            }
+        });
+        mThongke.add(mDoanhthutong);
+
+        mDoanhthutungcuahang.setText("Doanh thu từng cửa hàng");
+        mDoanhthutungcuahang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDoanhthutungcuahangMouseClicked(evt);
+            }
+        });
+        mThongke.add(mDoanhthutungcuahang);
+
+        mChitieu.setText("Chi tiêu");
+        mChitieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mChitieuMouseClicked(evt);
+            }
+        });
+        mThongke.add(mChitieu);
+
+        jMenuBar5.add(mThongke);
+
+        setJMenuBar(jMenuBar5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -592,6 +668,56 @@ public class danhmucsp extends javax.swing.JFrame {
         findByAuto(txtSreach.getText());
     }//GEN-LAST:event_txtSreachKeyReleased
 
+    private void mTongquan4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mTongquan4MouseClicked
+        new tongquan().setVisible(true);
+        this.setVisible(true);
+    }//GEN-LAST:event_mTongquan4MouseClicked
+
+    private void mDanhmucspMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDanhmucspMouseClicked
+        new danhmucsp().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDanhmucspMouseClicked
+
+    private void mhanghoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mhanghoaMouseClicked
+        new DATHANG().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mhanghoaMouseClicked
+
+    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
+        new QuanLyNhanVien().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem1MouseClicked
+
+    private void mChamcongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mChamcongMouseClicked
+        new chamcong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mChamcongMouseClicked
+
+    private void mLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mLuongMouseClicked
+        new luong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mLuongMouseClicked
+
+    private void mNhacungcapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mNhacungcapMouseClicked
+        new nhacungcap().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mNhacungcapMouseClicked
+
+    private void mDoanhthutongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDoanhthutongMouseClicked
+        new DoanhThu_Tong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDoanhthutongMouseClicked
+
+    private void mDoanhthutungcuahangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDoanhthutungcuahangMouseClicked
+        new ThongKe_ChiTieu().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDoanhthutungcuahangMouseClicked
+
+    private void mChitieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mChitieuMouseClicked
+        new ThongKe_DTTung_CH().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mChitieuMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -606,11 +732,6 @@ public class danhmucsp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Import;
-    private javax.swing.JMenu MDanhmucsp;
-    private javax.swing.JMenu MHanghoa;
-    private javax.swing.JMenu MNhaphang;
-    private javax.swing.JMenu MTongquan;
-    private javax.swing.JMenu MXuathang;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXemCT;
     private javax.swing.JComboBox<String> cboKho;
@@ -619,16 +740,25 @@ public class danhmucsp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenuBar jMenuBar5;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelBackground;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jpvisible1;
+    private javax.swing.JMenu mChamcong;
+    private javax.swing.JMenu mChitieu;
+    private javax.swing.JMenu mDanhmucsp;
+    private javax.swing.JMenu mDoanhthutong;
+    private javax.swing.JMenu mDoanhthutungcuahang;
+    private javax.swing.JMenu mLuong;
+    private javax.swing.JMenu mNhacungcap;
+    private javax.swing.JMenu mNhanvien;
+    private javax.swing.JMenu mThongke;
+    private javax.swing.JMenu mTongquan4;
+    private javax.swing.JMenu mhanghoa;
     private com.raven.swing.progress.Progress progress8;
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;

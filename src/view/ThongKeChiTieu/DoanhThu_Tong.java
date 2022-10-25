@@ -5,8 +5,8 @@
 package view.ThongKeChiTieu;
 
 
-import view.ThongKeDoanhThu.DoanhThu_tong;
-import view.ThongKeDoanhThu.ThongKe_TCH;
+import entity.ThongKeDoanhThu.DoanhThu_tong;
+import entity.ThongKeDoanhThu.ThongKe_TCH;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.Connection;
@@ -23,6 +23,13 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
+import view.Danhmucsp.danhmucsp;
+import view.Nhacungcap.nhacungcap;
+import view.Nhanvien.QuanLyNhanVien;
+import view.Nhanvien.chamcong;
+import view.Nhanvien.luong;
+import view.NhapXuat.DATHANG;
+import view.Tongquan.tongquan;
 
 /**
  *
@@ -149,13 +156,6 @@ String query ;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        btnThongKe = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jpnSoDoTong = new javax.swing.JPanel();
@@ -164,46 +164,21 @@ String query ;
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cboThang = new javax.swing.JComboBox<>();
+        jMenuBar9 = new javax.swing.JMenuBar();
+        mTongquan8 = new javax.swing.JMenu();
+        mDanhmucsp = new javax.swing.JMenu();
+        mhanghoa = new javax.swing.JMenu();
+        mNhanvien = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        mChamcong = new javax.swing.JMenu();
+        mLuong = new javax.swing.JMenu();
+        mNhacungcap = new javax.swing.JMenu();
+        mThongke = new javax.swing.JMenu();
+        mDoanhthutong = new javax.swing.JMenu();
+        mDoanhthutungcuahang = new javax.swing.JMenu();
+        mChitieu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jToolBar1.setRollover(true);
-
-        jButton1.setText("Tổng quan");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
-
-        jButton2.setText("Danh mục sản phẩm");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
-
-        jButton3.setText("Hàng hóa");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
-
-        jButton4.setText("Nhân viên");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton4);
-
-        jButton5.setText("Nhà cung cấp");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton5);
-
-        btnThongKe.setText("Thống kê");
-        btnThongKe.setFocusable(false);
-        btnThongKe.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnThongKe.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnThongKe);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -269,6 +244,99 @@ String query ;
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
+        jMenuBar9.setBorder(null);
+        jMenuBar9.setForeground(new java.awt.Color(255, 255, 255));
+
+        mTongquan8.setText("Tổng quan");
+        mTongquan8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mTongquan8MouseClicked(evt);
+            }
+        });
+        jMenuBar9.add(mTongquan8);
+
+        mDanhmucsp.setText("Danh mục sản phẩm");
+        mDanhmucsp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDanhmucspMouseClicked(evt);
+            }
+        });
+        jMenuBar9.add(mDanhmucsp);
+
+        mhanghoa.setText("Nhập xuất hàng hoá");
+        mhanghoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mhanghoaMouseClicked(evt);
+            }
+        });
+        jMenuBar9.add(mhanghoa);
+
+        mNhanvien.setText("Nhân viên");
+
+        jMenuItem1.setText("Quản lí nhân viên");
+        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem1MouseClicked(evt);
+            }
+        });
+        mNhanvien.add(jMenuItem1);
+
+        mChamcong.setText("Chấm công");
+        mChamcong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mChamcongMouseClicked(evt);
+            }
+        });
+        mNhanvien.add(mChamcong);
+
+        mLuong.setText("Lương");
+        mLuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mLuongMouseClicked(evt);
+            }
+        });
+        mNhanvien.add(mLuong);
+
+        jMenuBar9.add(mNhanvien);
+
+        mNhacungcap.setText("Nhà cung cấp");
+        mNhacungcap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mNhacungcapMouseClicked(evt);
+            }
+        });
+        jMenuBar9.add(mNhacungcap);
+
+        mThongke.setText("Thống kê");
+
+        mDoanhthutong.setText("Doanh thu tổng");
+        mDoanhthutong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDoanhthutongMouseClicked(evt);
+            }
+        });
+        mThongke.add(mDoanhthutong);
+
+        mDoanhthutungcuahang.setText("Doanh thu từng cửa hàng");
+        mDoanhthutungcuahang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDoanhthutungcuahangMouseClicked(evt);
+            }
+        });
+        mThongke.add(mDoanhthutungcuahang);
+
+        mChitieu.setText("Chi tiêu");
+        mChitieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mChitieuMouseClicked(evt);
+            }
+        });
+        mThongke.add(mChitieu);
+
+        jMenuBar9.add(mThongke);
+
+        setJMenuBar(jMenuBar9);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,12 +345,9 @@ String query ;
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addComponent(jLabel1)))
-                        .addGap(102, 285, Short.MAX_VALUE)
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel1)
+                        .addGap(431, 614, Short.MAX_VALUE)
                         .addComponent(btnXuatFile)
                         .addGap(47, 47, 47))
                     .addGroup(layout.createSequentialGroup()
@@ -297,9 +362,7 @@ String query ;
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(btnXuatFile))
@@ -324,6 +387,56 @@ String query ;
         selecttime();
         
     }//GEN-LAST:event_btnXuatFileActionPerformed
+
+    private void mTongquan8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mTongquan8MouseClicked
+        new tongquan().setVisible(true);
+        this.setVisible(true);
+    }//GEN-LAST:event_mTongquan8MouseClicked
+
+    private void mDanhmucspMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDanhmucspMouseClicked
+        new danhmucsp().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDanhmucspMouseClicked
+
+    private void mhanghoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mhanghoaMouseClicked
+        new DATHANG().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mhanghoaMouseClicked
+
+    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
+        new QuanLyNhanVien().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem1MouseClicked
+
+    private void mChamcongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mChamcongMouseClicked
+        new chamcong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mChamcongMouseClicked
+
+    private void mLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mLuongMouseClicked
+        new luong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mLuongMouseClicked
+
+    private void mNhacungcapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mNhacungcapMouseClicked
+        new nhacungcap().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mNhacungcapMouseClicked
+
+    private void mDoanhthutongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDoanhthutongMouseClicked
+        new DoanhThu_Tong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDoanhthutongMouseClicked
+
+    private void mDoanhthutungcuahangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDoanhthutungcuahangMouseClicked
+        new ThongKe_ChiTieu().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDoanhthutungcuahangMouseClicked
+
+    private void mChitieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mChitieuMouseClicked
+        new ThongKe_DTTung_CH().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mChitieuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -361,20 +474,32 @@ String query ;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnThongKe;
     private javax.swing.JButton btnXuatFile;
     private javax.swing.JComboBox<String> cboThang;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuBar jMenuBar5;
+    private javax.swing.JMenuBar jMenuBar6;
+    private javax.swing.JMenuBar jMenuBar7;
+    private javax.swing.JMenuBar jMenuBar9;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel jpnSoDoTong;
+    private javax.swing.JMenu mChamcong;
+    private javax.swing.JMenu mChitieu;
+    private javax.swing.JMenu mDanhmucsp;
+    private javax.swing.JMenu mDoanhthutong;
+    private javax.swing.JMenu mDoanhthutungcuahang;
+    private javax.swing.JMenu mLuong;
+    private javax.swing.JMenu mNhacungcap;
+    private javax.swing.JMenu mNhanvien;
+    private javax.swing.JMenu mThongke;
+    private javax.swing.JMenu mTongquan4;
+    private javax.swing.JMenu mTongquan5;
+    private javax.swing.JMenu mTongquan6;
+    private javax.swing.JMenu mTongquan8;
+    private javax.swing.JMenu mhanghoa;
     // End of variables declaration//GEN-END:variables
 }

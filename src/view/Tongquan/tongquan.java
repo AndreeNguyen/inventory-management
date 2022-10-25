@@ -16,6 +16,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDate;
 import java.time.Month;
+import view.Danhmucsp.danhmucsp;
+import view.Nhacungcap.nhacungcap;
+import view.Nhanvien.chamcong;
+import view.Nhanvien.luong;
+import view.NhapXuat.DATHANG;
+import view.ThongKeChiTieu.DoanhThu_Tong;
+import view.ThongKeChiTieu.ThongKe_ChiTieu;
+import view.ThongKeChiTieu.ThongKe_DTTung_CH;
 
 /**
  *
@@ -205,8 +213,6 @@ public class tongquan extends javax.swing.JFrame {
         mChamcong = new javax.swing.JMenu();
         mLuong = new javax.swing.JMenu();
         mNhacungcap = new javax.swing.JMenu();
-        mLichsunhap = new javax.swing.JMenu();
-        mNonhacungcap = new javax.swing.JMenu();
         mThongke = new javax.swing.JMenu();
         mDoanhthutong = new javax.swing.JMenu();
         mDoanhthutungcuahang = new javax.swing.JMenu();
@@ -214,7 +220,6 @@ public class tongquan extends javax.swing.JFrame {
 
         jPanel5.setOpaque(false);
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Kho tổng");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -257,7 +262,6 @@ public class tongquan extends javax.swing.JFrame {
         pnlBanhang.setBackground(new java.awt.Color(255, 255, 255));
 
         lblBieudobanhang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBieudobanhang.setForeground(new java.awt.Color(0, 0, 0));
         lblBieudobanhang.setText("Biểu đồ bán hàng");
 
         cboSLDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay", "Tuần trước", "Tháng trước" }));
@@ -307,10 +311,8 @@ public class tongquan extends javax.swing.JFrame {
         );
 
         pnlSucchuakho.setBackground(new java.awt.Color(255, 255, 255));
-        pnlSucchuakho.setForeground(new java.awt.Color(0, 0, 0));
 
         lblBieudosucchuakho.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBieudosucchuakho.setForeground(new java.awt.Color(0, 0, 0));
         lblBieudosucchuakho.setText("Biểu đồ sức chứa kho");
 
         pnlChart1.setOpaque(false);
@@ -319,7 +321,6 @@ public class tongquan extends javax.swing.JFrame {
         Chart1.setForeground(new java.awt.Color(255, 0, 51));
         Chart1.setValue(60);
 
-        lblChart1.setForeground(new java.awt.Color(0, 0, 0));
         lblChart1.setText("Kho tổng");
 
         javax.swing.GroupLayout pnlChart1Layout = new javax.swing.GroupLayout(pnlChart1);
@@ -411,6 +412,11 @@ public class tongquan extends javax.swing.JFrame {
         jMenuBar1.setForeground(new java.awt.Color(255, 255, 255));
 
         mTongquan.setText("Tổng quan");
+        mTongquan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mTongquanMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(mTongquan);
 
         mDanhmucsp.setText("Danh mục sản phẩm");
@@ -421,38 +427,66 @@ public class tongquan extends javax.swing.JFrame {
         });
         jMenuBar1.add(mDanhmucsp);
 
-        mhanghoa.setText("Hàng hóa");
+        mhanghoa.setText("Nhập xuất hàng hoá");
+        mhanghoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mhanghoaMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(mhanghoa);
 
         mNhanvien.setText("Nhân viên");
 
         mChamcong.setText("Chấm công");
+        mChamcong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mChamcongMouseClicked(evt);
+            }
+        });
         mNhanvien.add(mChamcong);
 
         mLuong.setText("Lương");
+        mLuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mLuongMouseClicked(evt);
+            }
+        });
         mNhanvien.add(mLuong);
 
         jMenuBar1.add(mNhanvien);
 
         mNhacungcap.setText("Nhà cung cấp");
-
-        mLichsunhap.setText("Lịch sử nhập");
-        mNhacungcap.add(mLichsunhap);
-
-        mNonhacungcap.setText("Nợ NCC");
-        mNhacungcap.add(mNonhacungcap);
-
+        mNhacungcap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mNhacungcapMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(mNhacungcap);
 
         mThongke.setText("Thống kê");
 
         mDoanhthutong.setText("Doanh thu tổng");
+        mDoanhthutong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDoanhthutongMouseClicked(evt);
+            }
+        });
         mThongke.add(mDoanhthutong);
 
         mDoanhthutungcuahang.setText("Doanh thu từng cửa hàng");
+        mDoanhthutungcuahang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mDoanhthutungcuahangMouseClicked(evt);
+            }
+        });
         mThongke.add(mDoanhthutungcuahang);
 
         mChitieu.setText("Chi tiêu");
+        mChitieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mChitieuMouseClicked(evt);
+            }
+        });
         mThongke.add(mChitieu);
 
         jMenuBar1.add(mThongke);
@@ -490,8 +524,48 @@ public class tongquan extends javax.swing.JFrame {
     }//GEN-LAST:event_cboSLDateActionPerformed
 
     private void mDanhmucspMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDanhmucspMouseClicked
-        // TODO add your handling code here:
+        new danhmucsp().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_mDanhmucspMouseClicked
+
+    private void mhanghoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mhanghoaMouseClicked
+        new DATHANG().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mhanghoaMouseClicked
+
+    private void mTongquanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mTongquanMouseClicked
+        new tongquan().setVisible(true);
+    }//GEN-LAST:event_mTongquanMouseClicked
+
+    private void mChamcongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mChamcongMouseClicked
+       new chamcong().setVisible(true);
+       this.setVisible(false);
+    }//GEN-LAST:event_mChamcongMouseClicked
+
+    private void mLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mLuongMouseClicked
+        new luong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mLuongMouseClicked
+
+    private void mDoanhthutongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDoanhthutongMouseClicked
+        new DoanhThu_Tong().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDoanhthutongMouseClicked
+
+    private void mDoanhthutungcuahangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mDoanhthutungcuahangMouseClicked
+        new ThongKe_ChiTieu().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mDoanhthutungcuahangMouseClicked
+
+    private void mChitieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mChitieuMouseClicked
+        new ThongKe_DTTung_CH().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mChitieuMouseClicked
+
+    private void mNhacungcapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mNhacungcapMouseClicked
+        new nhacungcap().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mNhacungcapMouseClicked
 
     /**
      * @param args the command line arguments
@@ -552,11 +626,9 @@ public class tongquan extends javax.swing.JFrame {
     private javax.swing.JMenu mDanhmucsp;
     private javax.swing.JMenu mDoanhthutong;
     private javax.swing.JMenu mDoanhthutungcuahang;
-    private javax.swing.JMenu mLichsunhap;
     private javax.swing.JMenu mLuong;
     private javax.swing.JMenu mNhacungcap;
     private javax.swing.JMenu mNhanvien;
-    private javax.swing.JMenu mNonhacungcap;
     private javax.swing.JMenu mThongke;
     private javax.swing.JMenu mTongquan;
     private javax.swing.JMenu mhanghoa;
