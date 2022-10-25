@@ -226,11 +226,9 @@ public class lichsunhap extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblList_History = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblList_Debt = new com.raven.swing.Table();
         btnThanhToan = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblList_Debt = new javax.swing.JTable();
         roundPanel4 = new com.raven.swing.RoundPanel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -512,7 +510,15 @@ public class lichsunhap extends javax.swing.JFrame {
             }
         });
 
-        tblList_Debt.setForeground(new java.awt.Color(255, 255, 255));
+        btnThanhToan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnThanhToan.setText("Thanh Toán");
+        btnThanhToan.setEnabled(false);
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThanhToanActionPerformed(evt);
+            }
+        });
+
         tblList_Debt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -529,29 +535,12 @@ public class lichsunhap extends javax.swing.JFrame {
                 tblList_DebtMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblList_Debt);
-
-        btnThanhToan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnThanhToan.setText("Thanh Toán");
-        btnThanhToan.setEnabled(false);
-        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThanhToanActionPerformed(evt);
+        tblList_Debt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblList_DebtKeyPressed(evt);
             }
         });
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane5.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tblList_Debt);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -564,7 +553,7 @@ public class lichsunhap extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel4Layout.setVerticalGroup(
@@ -576,8 +565,8 @@ public class lichsunhap extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(57, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(55, Short.MAX_VALUE)))
         );
 
         x.addTab("Nợ cần trả NCC", jPanel4);
@@ -802,9 +791,12 @@ public class lichsunhap extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel4MouseClicked
 
+    private void tblList_DebtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblList_DebtKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblList_DebtKeyPressed
+
     private void tblList_DebtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblList_DebtMouseClicked
         btnThanhToan.setEnabled(true);
-
     }//GEN-LAST:event_tblList_DebtMouseClicked
 
     /**
@@ -855,16 +847,14 @@ public class lichsunhap extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanelBackground;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable jTable2;
     private com.raven.swing.progress.Progress progress8;
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
     private com.raven.swing.RoundPanel roundPanel3;
     private com.raven.swing.RoundPanel roundPanel4;
-    private com.raven.swing.Table tblList_Debt;
+    private javax.swing.JTable tblList_Debt;
     private javax.swing.JTable tblList_History;
     private javax.swing.JTextArea txaDiaChi;
     private javax.swing.JTextField txtCongTy;

@@ -340,7 +340,7 @@ public class thanhtoan extends javax.swing.JFrame {
         tt.setTongTien(Float.parseFloat(txtNoHienTai.getText()));
         tt.setThanhToan(Float.parseFloat(txtThanhToan.getText()));
         tt.setConLai(Float.parseFloat(txtConLai.getText()));
-        tt.setNgayTao(XDate.toDate("yyyy-MM-dd", txtThoiGian.getText()));
+        tt.setNgayTao(new SimpleDateFormat("yyyy-MM-dd").parse(txtThoiGian.getText()));
         tt.setPhuongThuc(cboPhuongThuc.getSelectedIndex() + "");
         tt.setGhiChu(txaGhiChu.getText());
         return tt;
