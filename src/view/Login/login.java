@@ -8,9 +8,12 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import view.Tongquan.tongquan;
 import view.Tongquan.tongquanuser;
+
+
 
 /**
  *
@@ -62,9 +65,9 @@ public class login extends javax.swing.JFrame {
         lblUsername.setForeground(new java.awt.Color(255, 255, 255));
         lblUsername.setText("Username");
 
-        txtUsername.setBackground(new java.awt.Color(204, 0, 204));
+        txtUsername.setBackground(new java.awt.Color(255, 255, 255));
         txtUsername.setFont(txtUsername.getFont().deriveFont(txtUsername.getFont().getSize()+2f));
-        txtUsername.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsername.setForeground(new java.awt.Color(0, 0, 0));
         txtUsername.setBorder(null);
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,9 +81,9 @@ public class login extends javax.swing.JFrame {
         lblPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblPassword.setText("Password");
 
-        txtPassword.setBackground(new java.awt.Color(204, 0, 204));
+        txtPassword.setBackground(new java.awt.Color(255, 255, 255));
         txtPassword.setFont(txtPassword.getFont().deriveFont(txtPassword.getFont().getSize()+2f));
-        txtPassword.setForeground(new java.awt.Color(255, 255, 255));
+        txtPassword.setForeground(new java.awt.Color(0, 0, 0));
         txtPassword.setBorder(null);
         txtPassword.setCaretColor(new java.awt.Color(255, 255, 255));
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +163,7 @@ public class login extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 0));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -249,6 +252,13 @@ public class login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -261,7 +271,7 @@ public class login extends javax.swing.JFrame {
     private void conect() {
         try {
             Connection con = DatabaseHelper.oppenConnection();
-            String sql = "Select * from Nhanvien where username = ? and pass = ?";
+            String sql = "Select * from Taikhoan where MaNV= ? and Pass = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, txtUsername.getText());
             pst.setString(2, new String(txtPassword.getPassword()));
@@ -296,7 +306,9 @@ public class login extends javax.swing.JFrame {
             tongquanuser tqu = new tongquanuser();
             tqu.setVisible(true);
         }
-    }
+            
+        }
+    
 
     public boolean Checkvalidate() {
 

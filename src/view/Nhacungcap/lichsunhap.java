@@ -38,8 +38,8 @@ public class lichsunhap extends javax.swing.JFrame {
         Pnlbackground = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         roundPanel2 = new com.raven.swing.RoundPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblLichsunhap = new com.raven.swing.Table();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table2 = new com.raven.swing.Table();
         roundPanel4 = new com.raven.swing.RoundPanel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -102,7 +102,7 @@ public class lichsunhap extends javax.swing.JFrame {
 
         roundPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblLichsunhap.setModel(new javax.swing.table.DefaultTableModel(
+        table2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -113,7 +113,7 @@ public class lichsunhap extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblLichsunhap);
+        jScrollPane2.setViewportView(table2);
 
         javax.swing.GroupLayout roundPanel2Layout = new javax.swing.GroupLayout(roundPanel2);
         roundPanel2.setLayout(roundPanel2Layout);
@@ -121,14 +121,14 @@ public class lichsunhap extends javax.swing.JFrame {
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
                 .addContainerGap())
         );
         roundPanel2Layout.setVerticalGroup(
             roundPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -596,13 +596,13 @@ public class lichsunhap extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private com.raven.swing.progress.Progress progress8;
     private com.raven.swing.RoundPanel roundPanel1;
     private com.raven.swing.RoundPanel roundPanel2;
     private com.raven.swing.RoundPanel roundPanel3;
     private com.raven.swing.RoundPanel roundPanel4;
-    private com.raven.swing.Table tblLichsunhap;
+    private com.raven.swing.Table table2;
     // End of variables declaration//GEN-END:variables
 }

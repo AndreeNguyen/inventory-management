@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  */
 public class nguoidungDao {
      public nguoidung checkLogin(String username, String pass) throws Exception {
-        String sql = "select * from Nhanvien where username = ? and pass = ?";
+        String sql = "select * from Taikhoan where MaNV = ? and Pass = ?";
         try (
                  Connection con = DatabaseHelper.oppenConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             psmt.setString(1, username);
@@ -25,7 +25,7 @@ public class nguoidungDao {
                     nguoidung nd = new nguoidung();
                     nd.setUsername(username);
                   
-                    nd.setRoleuser(rs.getString("Roleuser"));
+                    nd.setRoleuser(rs.getString("Vaitro"));
                     return nd;
                 }
             }
