@@ -347,6 +347,10 @@ public class themnhacungcap extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
+<<<<<<< HEAD (24dd392) - Tong hop thanh cong
+=======
+    private javax.swing.JLabel jLabel17;
+>>>>>>> origin/dev-tung (19350c7) - tung commit
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
@@ -356,9 +360,27 @@ public class themnhacungcap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+<<<<<<< HEAD (24dd392) - Tong hop thanh cong
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+=======
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField16;
+    private javax.swing.JTextField jTextField17;
+    private javax.swing.JTextField jTextField18;
+    private javax.swing.JTextField jTextField19;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField20;
+    private javax.swing.JTextField jTextField21;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+>>>>>>> origin/dev-tung (19350c7) - tung commit
     private com.raven.swing.RoundPanel roundPanel1;
+    // End of variables declaration//GEN-END:variables
+}
+<<<<<<< HEAD (24dd392) - Tong hop thanh cong
     private javax.swing.JTextArea txaDiaChi;
     private javax.swing.JTextArea txaGhiChu;
     private javax.swing.JTextField txtCongTy;
@@ -368,5 +390,6 @@ public class themnhacungcap extends javax.swing.JFrame {
     private javax.swing.JTextField txtMaSoThue;
     private javax.swing.JTextField txtNhomNCC;
     private javax.swing.JTextField txtTenNCC;
-    // End of variables declaration//GEN-END:variables
-}
+=======
+    private com.raven.swing.RoundPanel roundPanel2;
+>>>>>>> origin/dev-tung (19350c7) - tung commit
